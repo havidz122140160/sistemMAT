@@ -1,0 +1,427 @@
+kode_barang_lengkap,nama_barang_spesifik
+1.3.2.05.01.01.001,Mesin Ketik Manual Portable (11-13 Inci)
+1.3.2.05.01.01.002,Mesin Ketik Manual Standard (14-16 Inci)
+1.3.2.05.01.01.003,Mesin Ketik Manual Langewagon (18-27 Inci)
+1.3.2.05.01.01.004,Mesin Ketik Listrik
+1.3.2.05.01.01.005,Mesin Ketik Listrik Portable (11-13 Inci)
+1.3.2.05.01.01.006,Mesin Ketik Listrik Standard (14-16 Inci)
+1.3.2.05.01.01.007,Mesin Ketik Listrik Langewagon (18-27 Inci)
+1.3.2.05.01.01.008,Mesin Ketik Elektronik/Elektrik
+1.3.2.05.01.01.009,Mesin Ketik Braille
+1.3.2.05.01.01.010,Mesin Phromosons
+1.3.2.05.01.01.011,Mesin Cetak Stereo Piper (Braille)
+1.3.2.05.01.02.001,Mesin Hitung Manual
+1.3.2.05.01.02.002,Mesin Hitung Listrik
+1.3.2.05.01.02.003,Mesin Hitung Elektronik/Calculator
+1.3.2.05.01.02.004,Mesin Kas Register
+1.3.2.05.01.02.005,Abakus (Alat Hitung)
+1.3.2.05.01.02.006,Blokycs (Mesin Hitung Braille)
+1.3.2.05.01.02.007,Mesin Penghitung Uang
+1.3.2.05.01.02.008,Mesin Pembukuan
+1.3.2.05.01.02.009,Mesin Penghitung Kertas/Pita Cukai
+1.3.2.05.01.02.010,Mesin Absen (Time Recorder)
+1.3.2.05.01.02.011,Mesin Kontrol Jaga
+1.3.2.05.01.02.012,Mesin Penghitung Uang
+1.3.2.05.01.03.001,Mesin Stensil Manual Folio
+1.3.2.05.01.03.002,Mesin Stensil Manual Double Folio
+1.3.2.05.01.03.003,Mesin Stensil Listrik Folio
+1.3.2.05.01.03.004,Mesin Stensil Listrik Double Folio
+1.3.2.05.01.03.005,Mesin Stensil Spiritus Manual
+1.3.2.05.01.03.006,Mesin Stensil Spiritus Listrik
+1.3.2.05.01.03.007,Mesin Fotocopy Folio
+1.3.2.05.01.03.008,Mesin Fotocopy Double Folio
+1.3.2.05.01.03.009,Mesin Fotocopy Electronic
+1.3.2.05.01.03.010,Mesin Thermoforn
+1.3.2.05.01.03.011,Mesin Fotocopy Lainnya
+1.3.2.05.01.03.012,Risograf
+1.3.2.05.01.03.013,Mesin Perekam Stensil Folio
+1.3.2.05.01.03.014,Mesin Perekam Stensil Double Folio
+1.3.2.05.01.03.015,Mesin Plate Folio
+1.3.2.05.01.03.016,Mesin Plate Double Folio
+1.3.2.05.01.04.001,Lemari Besi/Metal
+1.3.2.05.01.04.002,Lemari Kayu
+1.3.2.05.01.04.003,Rak Besi
+1.3.2.05.01.04.004,Rak Kayu
+1.3.2.05.01.04.005,Filling Cabinet Besi
+1.3.2.05.01.04.006,Filling Cabinet Kayu
+1.3.2.05.01.04.007,Brankas
+1.3.2.05.01.04.008,Peti Uang/Cash Box/Coin Box
+1.3.2.05.01.04.009,Kardex Besi
+1.3.2.05.01.04.010,Kardex Kayu
+1.3.2.05.01.04.011,Rotary Filling
+1.3.2.05.01.04.012,Compact Rolling
+1.3.2.05.01.04.013,Buffet
+1.3.2.05.01.04.014,Mobile File
+1.3.2.05.01.04.015,Locker
+1.3.2.05.01.04.016,Roll Opek
+1.3.2.05.01.04.017,Tempat Menyimpan Gambar
+1.3.2.05.01.04.018,Kontainer
+1.3.2.05.01.04.019,Coin Box
+1.3.2.05.01.04.020,Lemari Display
+1.3.2.05.01.04.021,Water Proof Box
+1.3.2.05.01.04.022,Folding Container Box
+1.3.2.05.01.04.023,Box Truck
+1.3.2.05.01.04.024,Laci Box
+1.3.2.05.01.04.025,Lemari Katalog
+1.3.2.05.01.04.026,Lemari Sorok
+1.3.2.05.01.04.027,Lemari Kaca
+1.3.2.05.01.04.028,Lemari Makan
+1.3.2.05.01.05.001,Narkotik Test
+1.3.2.05.01.05.002,CCTV - Camera Control Television System
+1.3.2.05.01.05.003,Papan Visual/Papan Nama
+1.3.2.05.01.05.004,Movitex Board
+1.3.2.05.01.05.005,White Board
+1.3.2.05.01.05.006,Alat Detektor Uang Palsu
+1.3.2.05.01.05.007,Alat Detektor Barang Terlarang/X Ray
+1.3.2.05.01.05.008,Copy Board/Electric White Board
+1.3.2.05.01.05.009,Peta
+1.3.2.05.01.05.010,Alat Penghancur Kertas
+1.3.2.05.01.05.011,Globe
+1.3.2.05.01.05.012,Mesin Absensi
+1.3.2.05.01.05.013,Dry Seal
+1.3.2.05.01.05.014,Fergulator
+1.3.2.05.01.05.015,Cream Polisher
+1.3.2.05.01.05.016,Mesin Perangko
+1.3.2.05.01.05.017,Check Writer
+1.3.2.05.01.05.018,Numerator
+1.3.2.05.01.05.019,Alat Pemotong Kertas
+1.3.2.05.01.05.020,Headmachine Besar
+1.3.2.05.01.05.021,Perforator Besar
+1.3.2.05.01.05.022,Alat Pencetak Label
+1.3.2.05.01.05.023,Overhead Projector
+1.3.2.05.01.05.024,Hand Metal Detector
+1.3.2.05.01.05.025,Walkman Detector
+1.3.2.05.01.05.026,Panel Pameran
+1.3.2.05.01.05.027,Alat Pengaman/Sinyal
+1.3.2.05.01.05.028,Board Modulux
+1.3.2.05.01.05.029,Porto Safe Travel Case
+1.3.2.05.01.05.030,Disk Prime
+1.3.2.05.01.05.031,Megashow
+1.3.2.05.01.05.032,White Board Electronic
+1.3.2.05.01.05.033,Laser Pointer
+1.3.2.05.01.05.034,Display
+1.3.2.05.01.05.035,Exhauster Form
+1.3.2.05.01.05.036,Rubu Mujayyab
+1.3.2.05.01.05.037,Elecric Dumper
+1.3.2.05.01.05.038,Mesin Teraan
+1.3.2.05.01.05.039,Mesin Laminating
+1.3.2.05.01.05.040,Penangkal Petir
+1.3.2.05.01.05.041,Stempel Timbul/Bulat
+1.3.2.05.01.05.042,Lamu-lampu Kristal
+1.3.2.05.01.05.043,LCD Projector/Infocus
+1.3.2.05.01.05.044,Flip Chart
+1.3.2.05.01.05.045,Binding Machine
+1.3.2.05.01.05.046,Softboard
+1.3.2.05.01.05.047,Alat Perekam Suara (Voice Pen)
+1.3.2.05.01.05.048,Acces Control System
+1.3.2.05.01.05.049,Intruction Detector
+1.3.2.05.01.05.050,Monitor Panel With Mimic Board
+1.3.2.05.01.05.051,"Panic Button System, Alarm Indicator"
+1.3.2.05.01.05.052,Pintu Elektrik (yang Memakai Akses)
+1.3.2.05.01.05.053,Focusing Screen/Layar LCD Projector
+1.3.2.05.01.05.054,Alat Detektor Barang Terlarang
+1.3.2.05.01.05.055,Projector Spider Bracket
+1.3.2.05.01.05.056,Papan Gambar
+1.3.2.05.01.05.057,Bel
+1.3.2.05.01.05.058,Electric Pressing Machine
+1.3.2.05.01.05.059,Encapsulator (Jarasonic welder)
+1.3.2.05.01.05.060,Deacidificator Unit (Non Aquas)
+1.3.2.05.01.05.061,Full Automatic Leaf Caster
+1.3.2.05.01.05.062,Conservation Tools
+1.3.2.05.01.05.063,Board Stand
+1.3.2.05.01.05.064,Vacuum Freeze Dry Chamber
+1.3.2.05.01.05.065,Kotak Surat
+1.3.2.05.01.05.066,Gembok
+1.3.2.05.01.05.067,Compact Hand Projector
+1.3.2.05.01.05.068,Alat Sidik Jari
+1.3.2.05.01.05.069,Alat Penghancur Jarum
+1.3.2.05.01.05.070,Walkthrough/Portal Metal Detektor
+1.3.2.05.01.05.071,Handheld Trace Detector
+1.3.2.05.01.05.072,Alat Deteksi Pita Cukai Palsi/Video Spectral Comparator
+1.3.2.05.01.05.073,Mesin Packing/Strapping Machine
+1.3.2.05.01.05.074,Television Control Operational Lift
+1.3.2.05.01.05.075,Mesin Antrian
+1.3.2.05.01.05.076,Papan Nama Instansi
+1.3.2.05.01.05.077,Papan Pengumuman
+1.3.2.05.01.05.078,Papan Tulis
+1.3.2.05.01.05.079,Papan Absen
+1.3.2.05.01.05.080,Mesin Fogging
+1.3.2.05.01.05.081,Teralis
+1.3.2.05.01.05.082,Alat Penerjemah
+1.3.2.05.01.05.083,Alat Penghancur Plastik
+1.3.2.05.01.05.084,Proteksi Petir Terpadu
+1.3.2.05.01.05.085,Pakaian Toga
+1.3.2.05.01.05.086,Sirine
+1.3.2.05.01.05.087,Tongkal Pedel
+1.3.2.05.02.01.001,Meja Kerja Besi/Metal
+1.3.2.05.02.01.002,Meja Kerja Kayu
+1.3.2.05.02.01.003,Kursi Besi/Metal
+1.3.2.05.02.01.004,Kursi Kayu
+1.3.2.05.02.01.005,Sice
+1.3.2.05.02.01.006,Bangku Panjang Besi/Metal
+1.3.2.05.02.01.007,Bangku Panjang Kayu
+1.3.2.05.02.01.008,Meja Rapat
+1.3.2.05.02.01.009,Tempat Tidur Besi
+1.3.2.05.02.01.010,Tempat Tidur Kayu
+1.3.2.05.02.01.011,Meja Ketik
+1.3.2.05.02.01.012,Meja Telepon
+1.3.2.05.02.01.013,Meja Podium
+1.3.2.05.02.01.014,Meja Resepsionis
+1.3.2.05.02.01.015,Meja Marmer
+1.3.2.05.02.01.016,Meja Tambahan
+1.3.2.05.02.01.017,Meja Panjang
+1.3.2.05.02.01.018,Meja Bundar
+1.3.2.05.02.01.019,Meja Periksa Pasien
+1.3.2.05.02.01.020,Meja Obat
+1.3.2.05.02.01.021,Meja Kartu
+1.3.2.05.02.01.022,Meja Bayi
+1.3.2.05.02.01.023,Meja Sekolah
+1.3.2.05.02.01.024,Meja 1/2 Biro
+1.3.2.05.02.01.025,Kasur/Spring Bed
+1.3.2.05.02.01.026,Sketsel
+1.3.2.05.02.01.027,Meja Makan Besi
+1.3.2.05.02.01.028,Meja Makan Kayu
+1.3.2.05.02.01.029,Kursi Fiber Glass/Plastik
+1.3.2.05.02.01.030,Kursi Rapat
+1.3.2.05.02.01.031,Kursi Tamu
+1.3.2.05.02.01.032,Kursi Putar
+1.3.2.05.02.01.033,Kursi Biasa
+1.3.2.05.02.01.034,Bangku Sekolah
+1.3.2.05.02.01.035,Bangku Tunggu
+1.3.2.05.02.01.036,Kursi Lipat
+1.3.2.05.02.01.037,Bangku Injak
+1.3.2.05.02.01.038,Meja Cetakan
+1.3.2.05.02.01.039,Meja Komputer
+1.3.2.05.02.01.040,Pot Bunga
+1.3.2.05.02.01.041,Partisi
+1.3.2.05.02.01.042,Publik Astari (Pembatas Antrian)
+1.3.2.05.02.01.043,Rak Sepatu (Alumunium)
+1.3.2.05.02.01.044,Gantungan Jas
+1.3.2.05.02.01.045,Nakas
+1.3.2.05.02.01.046,Cubikal
+1.3.2.05.02.01.047,Workstation
+1.3.2.05.02.01.048,Sofa
+1.3.2.05.02.01.049,Meja Rias
+1.3.2.05.02.02.001,Jam Mekanis
+1.3.2.05.02.02.002,Jam Listrik
+1.3.2.05.02.02.003,Jam Elektronik
+1.3.2.05.02.02.004,Control Clock
+1.3.2.05.02.03.001,Mesin Penghisap Debu/Vacuum Cleaner
+1.3.2.05.02.03.002,Mesin Pel/Poles
+1.3.2.05.02.03.003,Mesin Pemotong Rumput
+1.3.2.05.02.03.004,Mesin Cuci
+1.3.2.05.02.03.005,Air Cleaner
+1.3.2.05.02.03.006,Alat Pembersih Salju
+1.3.2.05.02.04.001,Lemari Es
+1.3.2.05.02.04.002,AC Sentral
+1.3.2.05.02.04.003,AC Window
+1.3.2.05.02.04.004,AC Split
+1.3.2.05.02.04.005,Portable Air Conditioner (Alat Pendingin)
+1.3.2.05.02.04.006,Kipas Angin
+1.3.2.05.02.04.007,Exhaust Fan
+1.3.2.05.02.04.008,Cold Storage (Alat Pendingin)
+1.3.2.05.02.04.009,Reach In Freezer
+1.3.2.05.02.04.010,Reach In Chiller
+1.3.2.05.02.04.011,Up Right Chiller/Freezer
+1.3.2.05.02.04.012,Cold Room Freezer
+1.3.2.05.02.04.013,Air Curtain
+1.3.2.05.02.04.014,Air Handling Unit
+1.3.2.05.02.05.001,Kompor Listrik (Alat Dapur)
+1.3.2.05.02.05.002,Kompor Gas (Alat Dapur)
+1.3.2.05.02.05.003,Kompor Minyak
+1.3.2.05.02.05.004,Teko Listrik
+1.3.2.05.02.05.005,Rice Cooker (Alat Dapur)
+1.3.2.05.02.05.006,Oven Listrik
+1.3.2.05.02.05.007,Rice Warmer
+1.3.2.05.02.05.008,Kitchen Set
+1.3.2.05.02.05.009,Tabung Gas
+1.3.2.05.02.05.010,Mesin Giling Bumbu
+1.3.2.05.02.05.011,Treng Air/Tandon Air/Toren
+1.3.2.05.02.05.012,Mesin Parutan Kelapa
+1.3.2.05.02.05.013,Kompor Kompresor
+1.3.2.05.02.05.014,Alat Pemanggang Roti/Sate
+1.3.2.05.02.05.015,Rak Piring Alumunium
+1.3.2.05.02.05.016,Alat Penyimpan Beras
+1.3.2.05.02.05.017,Panci
+1.3.2.05.02.05.018,Blender
+1.3.2.05.02.05.019,Mixer
+1.3.2.05.02.05.020,Oven Gas
+1.3.2.05.02.05.021,Presto Cooker
+1.3.2.05.02.05.022,Wonder Pan
+1.3.2.05.02.05.023,Mesin Giling Daging
+1.3.2.05.02.05.024,Heating Set
+1.3.2.05.02.05.025,Thermos Air
+1.3.2.05.02.06.001,Radio
+1.3.2.05.02.06.002,Televisi
+1.3.2.05.02.06.003,Video Cassette
+1.3.2.05.02.06.004,Tape Recorder (Alat Rumah Tangga Lainnya (Home Use))
+1.3.2.05.02.06.005,Amplifier
+1.3.2.05.02.06.006,Equalizer
+1.3.2.05.02.06.007,Loudspeaker
+1.3.2.05.02.06.008,Sound System
+1.3.2.05.02.06.009,Compact Disc
+1.3.2.05.02.06.010,Laser Disc
+1.3.2.05.02.06.011,Karaoke
+1.3.2.05.02.06.012,Wireless
+1.3.2.05.02.06.013,Megaphone
+1.3.2.05.02.06.014,Microphone
+1.3.2.05.02.06.015,Microphone Floor Stand
+1.3.2.05.02.06.016,Microphone Table Stand
+1.3.2.05.02.06.017,Mic Conference
+1.3.2.05.02.06.018,Unit Power Suply
+1.3.2.05.02.06.019,Step Up/Down (Alat Rumah Tangga Lainnya (Home Use)
+1.3.2.05.02.06.020,Stabilisator
+1.3.2.05.02.06.021,Camera Video
+1.3.2.05.02.06.022,Camera Film
+1.3.2.05.02.06.023,Tustel
+1.3.2.05.02.06.024,Mesin Jahit
+1.3.2.05.02.06.025,Timbangan Orang
+1.3.2.05.02.06.026,Timbangan Barang
+1.3.2.05.02.06.027,Alat Hiasan
+1.3.2.05.02.06.028,Lambang Garuda Pancasila
+1.3.2.05.02.06.029,Gambar Presiden/Wakil Presiden
+1.3.2.05.02.06.030,Lambang Korpri/Dharma Wanita
+1.3.2.05.02.06.031,Aquarium (Alat Rumah Tangga Lainnya (Home Use))
+1.3.2.05.02.06.032,Tiang Bendera
+1.3.2.05.02.06.033,Pataka
+1.3.2.05.02.06.034,Seterika
+1.3.2.05.02.06.035,Water Filter
+1.3.2.05.02.06.036,Tangga Alumunium
+1.3.2.05.02.06.037,Kaca Hias
+1.3.2.05.02.06.038,Dispenser
+1.3.2.05.02.06.039,Mimbar/Podium
+1.3.2.05.02.06.040,Gucci
+1.3.2.05.02.06.041,Tangga Hidrolik
+1.3.2.05.02.06.042,Palu Sidang
+1.3.2.05.02.06.043,Mesin Pengering Pakaian
+1.3.2.05.02.06.044,Lambang Instansi
+1.3.2.05.02.06.045,Lonceng/Genta
+1.3.2.05.02.06.046,Mesin Pemotong Keramik
+1.3.2.05.02.06.047,Coffe Maker
+1.3.2.05.02.06.048,Handy Cam
+1.3.2.05.02.06.049,Mesin Obras
+1.3.2.05.02.06.050,Mesin Potong Kain
+1.3.2.05.02.06.051,Mesin Pelubang Kancing
+1.3.2.05.02.06.052,Meja Potong
+1.3.2.05.02.06.053,Rader
+1.3.2.05.02.06.054,Manequin (Boneka)
+1.3.2.05.02.06.055,Mini Compo
+1.3.2.05.02.06.056,Heater (Alat Rumah Tangga Lainnya (Home Use))
+1.3.2.05.02.06.057,Karpet
+1.3.2.05.02.06.058,Vertikal Blind
+1.3.2.05.02.06.059,Gordyin/Kray
+1.3.2.05.02.06.060,Asbak Tinggi
+1.3.2.05.02.06.061,Sun Screen
+1.3.2.05.02.06.062,Alat Pemanas Ruangan
+1.3.2.05.02.06.063,Lemari Plastik
+1.3.2.05.02.06.064,Mesin Pengering Tangan
+1.3.2.05.02.06.065,Panggung
+1.3.2.05.02.06.066,Mesin Pedding
+1.3.2.05.02.06.067,DVD Player
+1.3.2.05.02.06.068,Tangga
+1.3.2.05.02.06.069,Lampu
+1.3.2.05.02.06.070,Jemuran
+1.3.2.05.02.06.071,Patung Peraga Pakaian
+1.3.2.05.02.06.072,Gendola
+1.3.2.05.02.06.073,Alat Pangkas Rambut Listrik
+1.3.2.05.02.06.074,Bracket Standing Peralatan
+1.3.2.05.02.06.075,Tangki Air
+1.3.2.05.02.06.076,Home Theater
+1.3.2.10.01.01.001,Mainframe (Komputer Jaringan)
+1.3.2.10.01.01.002,Mini Komputer
+1.3.2.10.01.01.003,Local Area Network (LAN)
+1.3.2.10.01.01.004,Internet
+1.3.2.10.01.01.005,Komputer Wedis
+1.3.2.10.01.01.006,Komputer Synergie
+1.3.2.10.01.01.007,PC Workstation
+1.3.2.10.01.02.001,PC Unit
+1.3.2.10.01.02.002,Laptop
+1.3.2.10.01.02.003,Note Book
+1.3.2.10.01.02.004,Palm Top
+1.3.2.10.01.02.005,Code Breaker Super Komputer
+1.3.2.10.01.02.006,Thinclient
+1.3.2.10.01.02.007,Net Book
+1.3.2.10.01.02.008,Ultra Mobile PC
+1.3.2.10.01.02.009,Tablet PC
+1.3.2.10.02.01.001,Card Reader (Peralatan Mainframe)
+1.3.2.10.02.01.002,Magnetic Tape Unit (Peralatan Mainframe)
+1.3.2.10.02.01.003,Floppy Disk Unit (Peralatan Mainframe)
+1.3.2.10.02.01.004,Storage Modul Disk (Peralatan Mainframe)
+1.3.2.10.02.01.005,Console Unit (Peralatan Mainframe)
+1.3.2.10.02.01.006,CPU (Peralatan Mainframe)
+1.3.2.10.02.01.007,Disk Pack (Peralatan Mainframe)
+1.3.2.10.02.01.008,Hard Copy Console
+1.3.2.10.02.01.009,Serial Printer
+1.3.2.10.02.01.010,Line
+1.3.2.10.02.01.011,Plotter (Peralatan Mainframe)
+1.3.2.10.02.01.012,Hard Disk
+1.3.2.10.02.01.013,Keyboard (Peralatan Mainframe)
+1.3.2.10.02.01.014,Steamer
+1.3.2.10.02.01.015,Data Patch Panel
+1.3.2.10.02.01.016,Paper Tape Reader
+1.3.2.10.02.01.017,Panaboard
+1.3.2.10.02.02.001,Card Reader (Peralatan Mini Komputer)
+1.3.2.10.02.02.002,Magnetic Tape Unit (Peralatan Mini Komputer)
+1.3.2.10.02.02.003,Floppy Disk Unit (Peralatan Mini Komputer)
+1.3.2.10.02.02.004,Storage Modul Disk (Peralatan Mini Komputer)
+1.3.2.10.02.02.005,Console Unit (Peralatan Mini Komputer)
+1.3.2.10.02.02.006,CPU (Peralatan Mini Komputer)
+1.3.2.10.02.02.007,Disk Pack (Peralatan Mini Komputer)
+1.3.2.10.02.02.008,Plotter (Peralatan Mini Komputer)
+1.3.2.10.02.02.009,Scanner (Peralatan Mini Komputer)
+1.3.2.10.02.02.010,Computer Compatible
+1.3.2.10.02.02.011,Viewer (Peralatan Mini Komputer)
+1.3.2.10.02.02.012,Digitizer (Peralatan Mini Komputer)
+1.3.2.10.02.02.013,Keyboard (Peralatan Mini Komputer)
+1.3.2.10.02.02.014,Auto Switch/Data Switch
+1.3.2.10.02.02.015,Cut Sheet Feeder
+1.3.2.10.02.02.016,Speaker Komputer
+1.3.2.10.02.03.001,CPU (Peralatan Personal Komputer)
+1.3.2.10.02.03.002,Monitor
+1.3.2.10.02.03.003,Printer (Peralatan Personal Komputer)
+1.3.2.10.02.03.004,Scanner (Peralatan Personal Komputer)
+1.3.2.10.02.03.005,Plotter (Peralatan Personal Komputer)
+1.3.2.10.02.03.006,Viewer (Peralatan Personal Komputer)
+1.3.2.10.02.03.007,External
+1.3.2.10.02.03.008,Digitizer (Peralatan Personal Komputer)
+1.3.2.10.02.03.009,Keyboard (Peralatan Personal Komputer)
+1.3.2.10.02.03.010,CD Writer
+1.3.2.10.02.03.011,DVD Writer
+1.3.2.10.02.03.012,Firewire Card
+1.3.2.10.02.03.013,Capture Card
+1.3.2.10.02.03.014,LAN Card
+1.3.2.10.02.03.015,External CD/DVD Drive (ROM)
+1.3.2.10.02.03.016,External Floppy Disk Drive
+1.3.2.10.02.03.017,External/Portable Hardisk
+1.3.2.10.02.04.001,Server
+1.3.2.10.02.04.002,Router
+1.3.2.10.02.04.003,Hub
+1.3.2.10.02.04.004,Modem
+1.3.2.10.02.04.005,Netware Interface External
+1.3.2.10.02.04.006,Repeater and Transciever
+1.3.2.10.02.04.007,Head Copy Terminal
+1.3.2.10.02.04.008,Rack Modem
+1.3.2.10.02.04.009,Card Punch
+1.3.2.10.02.04.010,Head Copy Printer
+1.3.2.10.02.04.011,Character Terminal
+1.3.2.10.02.04.012,Graphic Terminal
+1.3.2.10.02.04.013,Terminal
+1.3.2.10.02.04.014,Rak Server
+1.3.2.10.02.04.015,Firewall
+1.3.2.10.02.04.016,Switch Rak
+1.3.2.10.02.04.017,Wanscaller
+1.3.2.10.02.04.018,E-Mail Security
+1.3.2.10.02.04.019,Client Clearing House
+1.3.2.10.02.04.020,CAT 6 Cable
+1.3.2.10.02.04.021,Kabel UTP
+1.3.2.10.02.04.022,Wireless PCI Card
+1.3.2.10.02.04.023,Wireless Access Point
+1.3.2.10.02.04.024,Switch
+1.3.2.10.02.04.025,Hubbel UTP
+1.3.2.10.02.04.026,Access Point
+1.3.2.10.02.04.027,Rackmount
+1.3.2.10.02.04.028,KVM Keyboard Video Monitor
+1.3.2.10.02.04.029,Mobile Modem GSM/CDMA
+1.3.2.10.02.04.030,Network Cable Tester
+1.3.2.10.02.04.031,Jaringan Satpas
+1.3.2.10.02.04.032,NComputing

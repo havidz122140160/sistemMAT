@@ -1,28 +1,79 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import { Container, Table, Spinner, Alert } from 'react-bootstrap'; // Import komponen dari React Bootstrap
+import './App.css';
 
 function App() {
-  return (
-    <div className="container mt-5">
-      <h1>Halo Bang, Proyek Aset Dimulai!</h1>
-      <p>Tombol ini pakai class dari Bootstrap:</p>
-      
-      <button className="btn btn-primary me-2">Tombol Primary</button>
-      <button className="btn btn-success">Tombol Success</button>
+  const [asets, setAsets] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-      <div className="card mt-4">
-        <div className="card-header">
-          Contoh Card Bootstrap
+  useEffect(() => {
+    async function fetchAsets() {
+      try {
+        // Pastikan URL ini sesuai dengan alamat IP laptopmu
+        const response = await fetch('http://10.99.20.123:8000/api/aset/');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setAsets(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchAsets();
+  }, []);
+
+  return (
+    <Container className="mt-4">
+      <h1>Daftar Inventaris Aset</h1>
+      <hr />
+
+      {loading && (
+        <div className="text-center">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+          <p>Memuat data...</p>
         </div>
-        <div className="card-body">
-          <p className="card-text">Kalau card ini tampilannya rapi, berarti Bootstrap sudah berhasil di-install.</p>
-          <a href="#" className="btn btn-warning">Aksi</a>
-        </div>
-      </div>
-    </div>
-  )
+      )}
+
+      {error && (
+        <Alert variant="danger">
+          Gagal memuat data: {error}
+        </Alert>
+      )}
+
+      {!loading && !error && (
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Kode Aset</th>
+              <th>Nama Barang</th>
+              <th>Lokasi</th>
+              <th>Status</th>
+              <th>Tgl. Pembelian</th>
+            </tr>
+          </thead>
+          <tbody>
+            {asets.map((aset, index) => (
+              <tr key={aset.id}>
+                <td>{index + 1}</td>
+                <td>{aset.kode_aset}</td>
+                <td>{aset.nama_barang}</td>
+                <td>{aset.lokasi.nama_lokasi}</td>
+                <td>{aset.status}</td>
+                <td>{aset.tanggal_pembelian}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
+    </Container>
+  );
 }
 
-export default App
+export default App;

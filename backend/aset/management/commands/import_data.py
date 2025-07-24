@@ -4,11 +4,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from aset.models import Akun, Kelompok, Jenis, Objek, RincianObjek, SubRincianObjek, SubSubRincianObjek, RincianBarang
 
 class Command(BaseCommand):
-    help = 'Import data dari CSV ke database'
+    help = 'Mengimpor data dari file CSV ke dalam database'
 
     def add_arguments(self, parser):
-        parser.add_argument('--hirarki', type=str, help='Path ke file CSV untuk hirarki kode barang')
-        parser.add_argument('--barang', type=str, help='Path ke file CSV untuk data barang')
+        parser.add_argument('--hirarki', type=str, help='Lokasi file CSV untuk data hirarki kode')
+        parser.add_argument('--barang', type=str, help='Lokasi file CSV untuk data daftar barang')
 
     def handle(self, *args, **kwargs):
         if kwargs['hirarki']:
@@ -16,90 +16,97 @@ class Command(BaseCommand):
         elif kwargs['barang']:
             self.import_barang(kwargs['barang'])
         else:
-            self.stdout.write(self.style.ERROR('File yang diimpor tideak sesuai spesifikasi. Gunakan --hirarki atau --barang.'))
-    
+            self.stdout.write(self.style.ERROR('Tolong spesifikasikan file yang mau diimpor dengan --hirarki atau --barang'))
+
     def import_hirarki(self, file_path):
-        self.stdout.write(self.style.SUCCESS('Memulai impor hirarki kode barang dari {}'.format(file_path)))
+        self.stdout.write(self.style.SUCCESS(f'Memulai impor hirarki dari {file_path}...'))
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
                 for row in reader:
                     level = int(row['level'])
-                    kode_parts = row['kode'].split('.')
+                    kode_parts = row['kode_lengkap'].split('.')
                     nama = row['nama_item']
 
-                    if level == 1:
-                        Akun.objects.get_or_create(kode=kode_parts[0], defaults={'nama': nama})
-                    elif level == 2:
-                        parent = Akun.objects.get(kode=kode_parts[0])
-                        Kelompok.objects.get_or_create(akun=parent, kode=kode_parts[1], defaults={'nama': nama})
-                    elif level == 3:
-                        akun_parent = Akun.objects.get(kode=kode_parts[0])
-                        kelompok_parent = Kelompok.objects.get(akun=akun_parent, kode=kode_parts[1])
-                        Jenis.objects.get_or_create(kelompok=kelompok_parent, kode=kode_parts[2], defaults={'nama': nama}) 
-                    elif level == 4:
-                        akun_parent = Akun.objects.get(kode=kode_parts[0])
-                        kelompok_parent = Kelompok.objects.get(akun=akun_parent, kode=kode_parts[1])
-                        jenis_parent = Jenis.objects.get(kelompok=kelompok_parent, kode=kode_parts[2])
-                        Objek.objects.get_or_create(jenis=jenis_parent, kode=kode_parts[3], defaults={'nama': nama})
-                    elif level == 5:
-                        akun_parent = Akun.objects.get(kode=kode_parts[0])
-                        kelompok_parent = Kelompok.objects.get(akun=akun_parent, kode=kode_parts[1])
-                        jenis_parent = Jenis.objects.get(kelompok=kelompok_parent, kode=kode_parts[2])
-                        objek_parent = Objek.objects.get(jenis=jenis_parent, kode=kode_parts[3])
-                        RincianObjek.objects.get_or_create(objek=objek_parent, kode=kode_parts[4], defaults={'nama': nama})
-                    elif level == 6:
-                        akun_parent = Akun.objects.get(kode=kode_parts[0])
-                        kelompok_parent = Kelompok.objects.get(akun=akun_parent, kode=kode_parts[1])
-                        jenis_parent = Jenis.objects.get(kelompok=kelompok_parent, kode=kode_parts[2])
-                        objek_parent = Objek.objects.get(jenis=jenis_parent, kode=kode_parts[3])
-                        rincian_objek_parent = RincianObjek.objects.get(objek=objek_parent, kode=kode_parts[4])
-                        SubRincianObjek.objects.get_or_create(rincian_objek=rincian_objek_parent, kode=kode_parts[5], defaults={'nama': nama})
-                    elif level == 7:
-                        akun_parent = Akun.objects.get(kode=kode_parts[0])
-                        kelompok_parent = Kelompok.objects.get(akun=akun_parent, kode=kode_parts[1])
-                        jenis_parent = Jenis.objects.get(kelompok=kelompok_parent, kode=kode_parts[2])
-                        objek_parent = Objek.objects.get(jenis=jenis_parent, kode=kode_parts[3])
-                        rincian_objek_parent = RincianObjek.objects.get(objek=objek_parent, kode=kode_parts[4])
-                        sub_rincian_objek_parent = SubRincianObjek.objects.get(rincian_objek=rincian_objek_parent, kode=kode_parts[5])
-                        SubSubRincianObjek.objects.get_or_create(sub_rincian_objek=sub_rincian_objek_parent, kode=kode_parts[6], defaults={'nama': nama})
-                    
-            self.stdout.write(self.style.SUCCESS('Impor hirarki kode barang BERHASIL.'))
+                    try:
+                        if level == 1:
+                            Akun.objects.get_or_create(kode=kode_parts[0], defaults={'nama': nama})
+                        elif level == 2:
+                            parent = Akun.objects.get(kode=kode_parts[0])
+                            Kelompok.objects.get_or_create(akun=parent, kode=kode_parts[1], defaults={'nama': nama})
+                        elif level == 3:
+                            parent = Kelompok.objects.get(akun__kode=kode_parts[0], kode=kode_parts[1])
+                            Jenis.objects.get_or_create(kelompok=parent, kode=kode_parts[2], defaults={'nama': nama})
+                        elif level == 4:
+                            parent = Jenis.objects.get(kelompok__akun__kode=kode_parts[0], kelompok__kode=kode_parts[1], kode=kode_parts[2])
+                            Objek.objects.get_or_create(jenis=parent, kode=kode_parts[3], defaults={'nama': nama})
+                        elif level == 5:
+                            parent = Objek.objects.get(jenis__kelompok__akun__kode=kode_parts[0], jenis__kelompok__kode=kode_parts[1], jenis__kode=kode_parts[2], kode=kode_parts[3])
+                            RincianObjek.objects.get_or_create(objek=parent, kode=kode_parts[4], defaults={'nama': nama})
+                        elif level == 6:
+                            parent = RincianObjek.objects.get(objek__jenis__kelompok__akun__kode=kode_parts[0], objek__jenis__kelompok__kode=kode_parts[1], objek__jenis__kode=kode_parts[2], objek__kode=kode_parts[3], kode=kode_parts[4])
+                            SubRincianObjek.objects.get_or_create(rincian_objek=parent, kode=kode_parts[5], defaults={'nama': nama})
+                        elif level == 7:
+                            parent = SubRincianObjek.objects.get(rincian_objek__objek__jenis__kelompok__akun__kode=kode_parts[0], rincian_objek__objek__jenis__kelompok__kode=kode_parts[1], rincian_objek__objek__jenis__kode=kode_parts[2], rincian_objek__objek__kode=kode_parts[3], rincian_objek__kode=kode_parts[4], kode=kode_parts[5])
+                            SubSubRincianObjek.objects.get_or_create(sub_rincian_objek=parent, kode=kode_parts[6], defaults={'nama': nama})
+                    except ObjectDoesNotExist:
+                        self.stdout.write(self.style.WARNING(f"Induk untuk kode '{row['kode_lengkap']}' tidak ditemukan. Melewatkan..."))
+                        continue
+            self.stdout.write(self.style.SUCCESS('Impor data hirarki berhasil!'))
         except FileNotFoundError:
-            self.stdout.write(self.style.ERROR(f'File {file_path} tidak ditemukan. Pastikan path file benar.'))
+            self.stdout.write(self.style.ERROR(f'File tidak ditemukan di {file_path}'))
         except Exception as e:
-            self.stdout.write(self.style.ERROR(f'Kesalahan saat mengimpor hirarki kode barang: {e}'))
-    
+            self.stdout.write(self.style.ERROR(f'Terjadi error saat impor hirarki: {e}'))
+
     def import_barang(self, file_path):
-        self.stdout.write(self.style.SUCCESS('Memulai impor hirarki kode barang dari {}'.format(file_path)))
+        self.stdout.write(self.style.SUCCESS(f'Memulai DEBUG impor daftar barang dari {file_path}. Sabar ya KAMPANG!'))
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
-                for row in reader:
-                    kode_barang_lengkap = row['kode_barang_lengkap']
-                    nama_barang_spesifik = row['nama_barang_spesifik']
-
+                for i, row in enumerate(reader, 1):
+                    kode_barang_lengkap = row['kode_barang_lengkap'].strip()
+                    nama_barang_spesifik = row['nama_barang_spesifik'].strip()
                     kode_parts = kode_barang_lengkap.split('.')
 
+                    self.stdout.write(f"\n--- Memproses Baris {i}: {nama_barang_spesifik} ({kode_barang_lengkap}) ---")
+                    
                     try:
+                        # DEBUGGING: Cek setiap level satu per satu
                         akun = Akun.objects.get(kode=kode_parts[0])
-                        kelompok = Kelompok.objects.get(akun=akun, kode=kode_parts[1])
-                        jenis = Jenis.objects.get(kelompok=kelompok, kode=kode_parts[2])
-                        objek = Objek.objects.get(jenis=jenis, kode=kode_parts[3])
-                        rincian_objek = RincianObjek.objects.get(objek=objek, kode=kode_parts[4])
-                        sub_rincian_objek = SubRincianObjek.objects.get(rincian_objek=rincian_objek, kode=kode_parts[5])
-                        ssr_obj = SubSubRincianObjek.objects.get(sub_rincian_objek=sub_rincian_objek, kode=kode_parts[6])
+                        self.stdout.write(f"  [OK] Akun '{kode_parts[0]}' ditemukan.")
 
+                        kelompok = Kelompok.objects.get(akun=akun, kode=kode_parts[1])
+                        self.stdout.write(f"  [OK] Kelompok '{kode_parts[1]}' ditemukan.")
+
+                        jenis = Jenis.objects.get(kelompok=kelompok, kode=kode_parts[2])
+                        self.stdout.write(f"  [OK] Jenis '{kode_parts[2]}' ditemukan.")
+
+                        objek = Objek.objects.get(jenis=jenis, kode=kode_parts[3])
+                        self.stdout.write(f"  [OK] Objek '{kode_parts[3]}' ditemukan.")
+
+                        rincian_objek = RincianObjek.objects.get(objek=objek, kode=kode_parts[4])
+                        self.stdout.write(f"  [OK] Rincian Objek '{kode_parts[4]}' ditemukan.")
+
+                        sub_rincian_objek = SubRincianObjek.objects.get(rincian_objek=rincian_objek, kode=kode_parts[5])
+                        self.stdout.write(f"  [OK] Sub Rincian Objek '{kode_parts[5]}' ditemukan.")
+
+                        ssro_obj = SubSubRincianObjek.objects.get(sub_rincian_objek=sub_rincian_objek, kode=kode_parts[6])
+                        self.stdout.write(f"  [OK] Sub-Sub Rincian Objek '{kode_parts[6]}' ditemukan.")
+
+                        # Jika semua ditemukan, baru buat RincianBarang
                         RincianBarang.objects.get_or_create(
-                            sub_sub_rincian_objek=ssr_obj,
-                            nama_barang=nama_barang_spesifik
+                            sub_sub_rincian_objek=ssro_obj,
+                            defaults={'nama_barang': nama_barang_spesifik}
                         )
-                    except ObjectDoesNotExist:
-                        self.stdout.write(self.style.WARNING(f'Hirarki untuk kode {kode_barang_lengkap} tidak ditemukan. Melwatkan {nama_barang_spesifik}. Pastikan semua bagian hirarki sudah ada di database.'))
+                        self.stdout.write(self.style.SUCCESS(f"  [BERHASIL] Data '{nama_barang_spesifik}' berhasil diimpor."))
+
+                    except ObjectDoesNotExist as e:
+                        self.stdout.write(self.style.ERROR(f"  [GAGAL] Proses berhenti. Error: {e}"))
+                        self.stdout.write(self.style.WARNING(f"  Penyebab: Salah satu level di atas GAGAL ditemukan di database."))
                         continue
 
-            self.stdout.write(self.style.SUCCESS('Impor hirarki kode barang BERHASIL.'))
+            self.stdout.write(self.style.SUCCESS('\nProses impor daftar barang selesai. Bersyukur Kau Bujang.'))
         except FileNotFoundError:
-            self.stdout.write(self.style.ERROR(f'File {file_path} tidak ditemukan. Pastikan path file benar.'))
+            self.stdout.write(self.style.ERROR(f'File tidak ditemukan di {file_path}'))
         except Exception as e:
-            self.stdout.write(self.style.ERROR(f'Kesalahan saat mengimpor hirarki kode barang: {e}'))
+            self.stdout.write(self.style.ERROR(f'Terjadi error tak terduga: {e}'))

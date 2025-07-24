@@ -1,7 +1,12 @@
-from django.urls import path
-from .views import AsetListCreateView
-#RincianBarangListCreateView, LokasiListCreateView, AkunListCreateView, KelompokListCreateView, JenisListCreateView, ObjekListCreateView, RincianObjekListCreateView, SubRincianObjekListCreateView, SubSubRincianObjekListCreateView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import AsetViewSet, LokasiViewSet, KlasifikasiViewSet
+
+router = DefaultRouter()
+router.register(r'aset', AsetViewSet)
+router.register(r'lokasi', LokasiViewSet)
+router.register(r'klasifikasi', KlasifikasiViewSet)
 
 urlpatterns = [
-    path('aset/', AsetListCreateView.as_view(), name='aset-list-create'),
+    path('', include(router.urls)),
 ]

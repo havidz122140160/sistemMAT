@@ -104,27 +104,41 @@ class Aset(models.Model):
         ('Hilang', 'Hilang'),
     ]
 
-    nama_barang = models.CharField(max_length=225, verbose_name="Nama/Merek/Tipe Barang", null=True, blank=True)
-    klasifikasi = models.ForeignKey(SubSubRincianObjek, on_delete=models.PROTECT, verbose_name="Klasifikasi Barang", null=True, blank=True)
-    
-    rincian_barang = models.ForeignKey(RincianBarang, on_delete=models.PROTECT, verbose_name="Nama & Jenis Barang")
+    # --- Data Klasifikasi & Nama ---
+    klasifikasi = models.ForeignKey(SubSubRincianObjek, on_delete=models.PROTECT, verbose_name="Klasifikasi Barang")
+    nama_barang = models.CharField(max_length=260, verbose_name="Nama/Merek/Tipe Barang")
+
+    # --- Field Baru dari Laporan ---
+    nomor_register = models.CharField(max_length=50, blank=True, null=True)
+    ukuran = models.CharField(max_length=50, blank=True, null=True)
+    bahan = models.CharField(max_length=100, blank=True, null=True)
+    nomor_pabrik = models.CharField(max_length=100, blank=True, null=True, verbose_name="Nomor Pabrik/Chasis")
+    nomor_rangka = models.CharField(max_length=100, blank=True, null=True)
+    nomor_mesin = models.CharField(max_length=100, blank=True, null=True)
+    keterangan = models.TextField(blank=True, null=True)
+
+    # --- Data Perolehan & Lokasi ---
     lokasi = models.ForeignKey(Lokasi, on_delete=models.PROTECT)
     didaftarkan_oleh = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    
     tanggal_pembelian = models.DateField()
     harga_pembelian = models.DecimalField(max_digits=15, decimal_places=2)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Baik')
     
+    # --- Kode Aset Otomatis ---
     kode_aset = models.CharField(max_length=100, unique=True, blank=True, editable=False)
     
     terakhir_diperbarui = models.DateTimeField(auto_now=True)
     dibuat_pada = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.nama_barang} - {self.kode_aset}"
+        return f"{self.nama_barang} ({self.kode_aset})"
 
     def save(self, *args, **kwargs):
         if not self.pk:
+            # --- Logika pembuatan kode aset otomatis ---
+            kode_provinsi = self.lokasi.kota.provinsi.kode
+            kode_kota = self.lokasi.kota.kode
+
             s = self.klasifikasi.sub_rincian_objek.rincian_objek.objek.jenis.kelompok
             kode_akun = s.akun.kode
             kode_kelompok = s.kode
@@ -133,10 +147,8 @@ class Aset(models.Model):
             kode_rincian = self.klasifikasi.sub_rincian_objek.rincian_objek.kode
             kode_sub_rincian = self.klasifikasi.sub_rincian_objek.kode
             kode_sub_sub_rincian = self.klasifikasi.kode
+            
             kode_barang_lengkap = f"{kode_akun}.{kode_kelompok}.{kode_jenis}.{kode_objek}.{kode_rincian}.{kode_sub_rincian}.{kode_sub_sub_rincian}"
-
-            kode_provinsi = self.lokasi.kota.provinsi.kode
-            kode_kota = self.lokasi.kota.kode
             tahun_pembelian = str(self.tanggal_pembelian.year)
             
             nomor_terakhir = Aset.objects.filter(klasifikasi=self.klasifikasi).count()
@@ -147,6 +159,6 @@ class Aset(models.Model):
         
         super().save(*args, **kwargs)
 
-    # class Meta:
-    #     verbose_name_plural = "Daftar Aset"
-    #     ordering = ['-dibuat_pada']
+    class Meta:
+        verbose_name_plural = "Daftar Aset"
+        ordering = ['-dibuat_pada']

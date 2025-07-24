@@ -1,11 +1,15 @@
-from django.shortcuts import render
-from rest_framework import generics
-from .models import Aset, RincianBarang, Lokasi, Akun, Kelompok, Jenis, Objek, RincianObjek, SubRincianObjek, SubSubRincianObjek
-from .serializer import AsetSerializer
-# LokasiSerializer, AkunSerializer, KelompokSerializer, JenisSerializer, ObjekSerializer, RincianObjekSerializer, SubRincianObjekSerializer, SubSubRincianObjekSerializer
+from rest_framework import viewsets
+from .models import Aset, Lokasi, SubSubRincianObjek
+from .serializers import AsetSerializer, LokasiDetailSerializer, KlasifikasiDetailSerializer
 
-class AsetListCreateView(generics.ListCreateAPIView):
-    queryset = Aset.objects.all()
+class AsetViewSet(viewsets.ModelViewSet):
+    queryset = Aset.objects.all().order_by('-dibuat_pada')
     serializer_class = AsetSerializer
 
-# Create your views here.
+class LokasiViewSet(viewsets.ModelViewSet):
+    queryset = Lokasi.objects.all()
+    serializer_class = LokasiDetailSerializer
+
+class KlasifikasiViewSet(viewsets.ModelViewSet):
+    queryset = SubSubRincianObjek.objects.all()
+    serializer_class = KlasifikasiDetailSerializer
