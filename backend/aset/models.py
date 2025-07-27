@@ -95,6 +95,14 @@ class Lokasi(models.Model):
     nama_lokasi = models.CharField(max_length=100)
     def __str__(self): return self.nama_lokasi
 
+class UnitBidang(models.Model):
+    nama_unit = models.CharField(max_length=255, unique=True)
+    nama_kepala_dinas = models.CharField(max_length=255)
+    nip_kepala_dinas = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nama_unit
+
 # Model Utama Aset
 class Aset(models.Model):
     STATUS_CHOICES = [
@@ -116,6 +124,8 @@ class Aset(models.Model):
     nomor_rangka = models.CharField(max_length=100, blank=True, null=True)
     nomor_mesin = models.CharField(max_length=100, blank=True, null=True)
     keterangan = models.TextField(blank=True, null=True)
+
+    unit_bidang = models.ForeignKey(UnitBidang, on_delete=models.PROTECT, null=True, blank=True)
 
     # --- Data Perolehan & Lokasi ---
     lokasi = models.ForeignKey(Lokasi, on_delete=models.PROTECT)

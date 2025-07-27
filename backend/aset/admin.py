@@ -3,6 +3,7 @@ from .models import (
     Aset, RincianBarang, Akun, Kelompok, Jenis, Objek, RincianObjek, 
     SubRincianObjek, SubSubRincianObjek, Provinsi, Kota, Lokasi
 )
+from .models import UnitBidang
 
 @admin.register(RincianBarang)
 class RincianBarangAdmin(admin.ModelAdmin):
@@ -33,3 +34,4 @@ admin.site.register(SubRincianObjek)
 # Daftar Model Lokasi
 admin.site.register(Provinsi)
 admin.site.register(Kota)
+admin.site.register(UnitBidang)

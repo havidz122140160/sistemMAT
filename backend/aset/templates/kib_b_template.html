@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Laporan KIB B</title>
+    <style>
+        body { font-family: sans-serif; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 5px; text-align: left; }
+    </style>
+</head>
+<body>
+    <h1>DAFTAR BMD PADA PENGGUNA BARANG</h1>
+    <h2>PERALATAN DAN MESIN</h2>
+    <p>Unit Bidang: {{ unit_bidang.nama_unit }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Kode Barang</th>
+                <th>Nama Barang</th>
+                </tr>
+        </thead>
+        <tbody>
+            {% for aset in asets %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ aset.kode_aset }}</td>
+                <td>{{ aset.nama_barang }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="margin-top: 50px; text-align: right;">
+        <p>{{ unit_bidang.kota.nama_kota }}, {% now "d F Y" %}</p>
+        <p>Kepala Dinas</p>
+        <br/><br/><br/>
+        <p><strong>{{ unit_bidang.nama_kepala_dinas }}</strong></p>
+        <p>NIP. {{ unit_bidang.nip_kepala_dinas }}</p>
+    </div>
+</body>
+</html>

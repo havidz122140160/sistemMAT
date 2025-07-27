@@ -26,9 +26,10 @@ SECRET_KEY = 'django-insecure-bjpsce%xl0_j18hpi$uhuv=o5(h)5#(zdb0gh!1$wzl^val93p
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '127.0.0.1'
+    '127.0.0.1',
     'localhost',
-    '10.99.20.123'
+    '10.99.20.123',
+    '192.168.43.16',
 ]
 
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'aset',
     'rest_framework',
+    'django_filters',
     'corsheaders',
 ]
 
@@ -138,4 +140,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://10.99.20.123:5173",
+    "http://192.168.43.16:5173",
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10  # Jumlah item per halaman di atur di sini
+}
