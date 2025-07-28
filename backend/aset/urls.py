@@ -1,6 +1,10 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import AsetViewSet, UnitBidangViewSet, SubSubRincianObjekViewSet ,generate_kib_b_pdf, generate_belanja_modal_pdf
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 router = DefaultRouter()
 router.register(r'aset', AsetViewSet)

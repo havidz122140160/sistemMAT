@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'aset',
     'rest_framework',
+    'rest_framework_simplejwt',
     'django_filters',
     'corsheaders',
 ]
@@ -145,5 +146,9 @@ CORS_ALLOWED_ORIGINS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10  # Jumlah item per halaman di atur di sini
+    'PAGE_SIZE': 10,  # Jumlah item per halaman di atur di sini
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }

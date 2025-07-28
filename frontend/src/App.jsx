@@ -1,12 +1,13 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { Navbar, Container, Nav } from 'react-bootstrap';
+import LoginPage from './pages/LoginPage';
 import AsetListPage from './pages/AsetListPage';
 import LaporanPage from './pages/LaporanPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+function MainLayout() {
   return (
-    <BrowserRouter>
+    <>
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">Sistem Manajemen Aset</Navbar.Brand>
@@ -16,10 +17,23 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
+      <Outlet /> {/* Ini adalah tempat halaman (AsetList atau Laporan) akan dirender */}
+    </>
+  );
+}
 
+function App() {
+  return (
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<AsetListPage />} />
-        <Route path="/laporan" element={<LaporanPage />} />
+        {/* Rute untuk halaman-halaman utama yang menggunakan Navbar */}
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<AsetListPage />} />
+          <Route path="laporan" element={<LaporanPage />} />
+        </Route>
+        
+        {/* Rute khusus untuk halaman Login (tanpa Navbar utama) */}
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
   );
