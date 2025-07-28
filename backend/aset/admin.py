@@ -1,9 +1,8 @@
 from django.contrib import admin
 from .models import (
     Aset, RincianBarang, Akun, Kelompok, Jenis, Objek, RincianObjek, 
-    SubRincianObjek, SubSubRincianObjek, Provinsi, Kota, Lokasi
+    SubRincianObjek, SubSubRincianObjek, Provinsi, Kota, UnitBidang, Bidang, Pekerjaan, Kegiatan, SubKegiatan
 )
-from .models import UnitBidang
 
 @admin.register(RincianBarang)
 class RincianBarangAdmin(admin.ModelAdmin):
@@ -13,15 +12,27 @@ class RincianBarangAdmin(admin.ModelAdmin):
 class SubSubRincianObjekAdmin(admin.ModelAdmin):
     search_fields = ('nama',)
 
-@admin.register(Lokasi)
-class LokasiAdmin(admin.ModelAdmin):
-    search_fields = ('nama_lokasi',)
+@admin.register(UnitBidang)
+class UnitBidangAdmin(admin.ModelAdmin):
+    search_fields = ('nama_unit',)
+
+@admin.register(Pekerjaan)
+class PekerjaanAdmin(admin.ModelAdmin):
+    search_fields = ('nama_pekerjaan',)
+
+@admin.register(Kegiatan)
+class KegiatanAdmin(admin.ModelAdmin):
+    search_fields = ('nama_kegiatan',)
+
+@admin.register(SubKegiatan)
+class SubKegiatanAdmin(admin.ModelAdmin):
+    search_fields = ('nama_sub_kegiatan',)
 
 @admin.register(Aset)
 class AsetAdmin(admin.ModelAdmin):
     readonly_fields = ('kode_aset',)
-    autocomplete_fields = ('klasifikasi', 'lokasi') # bakal diupdate
-    list_display = ('nama_barang', 'kode_aset', 'klasifikasi', 'lokasi', 'status')
+    search_fields = ('klasifikasi', 'unit_bidang')
+    list_display = ('nama_barang', 'kode_aset', 'klasifikasi', 'unit_bidang', 'status')
 
 # Daftar Model Hirarki
 admin.site.register(Akun)
@@ -34,4 +45,4 @@ admin.site.register(SubRincianObjek)
 # Daftar Model Lokasi
 admin.site.register(Provinsi)
 admin.site.register(Kota)
-admin.site.register(UnitBidang)
+admin.site.register(Bidang)

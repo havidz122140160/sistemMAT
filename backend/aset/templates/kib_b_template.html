@@ -11,6 +11,13 @@
 <body>
     <h1>DAFTAR BMD PADA PENGGUNA BARANG</h1>
     <h2>PERALATAN DAN MESIN</h2>
+
+    {% if start_date %}
+        <p>Periode: {{ start_date }} s/d {{ end_date }}</p>
+    {% else %}
+        <p>Periode: Semua Waktu</p>
+    {% endif %}
+    
     <p>Unit Bidang: {{ unit_bidang.nama_unit }}</p>
     <table>
         <thead>
