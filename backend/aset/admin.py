@@ -1,12 +1,12 @@
 from django.contrib import admin
 from .models import (
     Aset, RincianBarang, Akun, Kelompok, Jenis, Objek, RincianObjek, 
-    SubRincianObjek, SubSubRincianObjek, Provinsi, Kota, UnitBidang, Bidang, Pekerjaan, Kegiatan, SubKegiatan
+    SubRincianObjek, SubSubRincianObjek, Provinsi, Kota, UnitBidang, Bidang, Ruangan, Pekerjaan, Kegiatan, SubKegiatan
 )
 
 @admin.register(RincianBarang)
 class RincianBarangAdmin(admin.ModelAdmin):
-    search_fields = ('nama_barang', 'kode_lengkap')
+    search_fields = ('merek_tipe', 'kode_lengkap')
 
 @admin.register(SubSubRincianObjek)
 class SubSubRincianObjekAdmin(admin.ModelAdmin):
@@ -32,7 +32,7 @@ class SubKegiatanAdmin(admin.ModelAdmin):
 class AsetAdmin(admin.ModelAdmin):
     readonly_fields = ('kode_aset',)
     search_fields = ('klasifikasi', 'unit_bidang')
-    list_display = ('nama_barang', 'kode_aset', 'klasifikasi', 'unit_bidang', 'status')
+    list_display = ('merek_tipe', 'kode_aset', 'klasifikasi', 'unit_bidang', 'status')
 
 # Daftar Model Hirarki
 admin.site.register(Akun)
@@ -46,3 +46,4 @@ admin.site.register(SubRincianObjek)
 admin.site.register(Provinsi)
 admin.site.register(Kota)
 admin.site.register(Bidang)
+admin.site.register(Ruangan)

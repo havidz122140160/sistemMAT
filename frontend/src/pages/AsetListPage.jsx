@@ -1,24 +1,33 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Table, Spinner, Alert, Navbar, Button, Modal, Form, Row, Col, Pagination } from 'react-bootstrap'; // Tambah Pagination
-import AsetTable from '../components/AsetTable.jsx';
+import { Container, Spinner, Alert, Button, Pagination } from 'react-bootstrap';
+import AsetTable from '../components/AsetTable';
 import FilterForm from '../components/FilterForm';
 import AsetModal from '../components/AsetModal';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-const API_BASE_URL = 'http://10.99.20.123:8000/api';
+const API_BASE_URL = 'http://127.0.0.1:8000/api'; //localhost
+//const API_BASE_URL = 'http://10.99.20.123:8000/api'; // IP pake jaringan kantor
+//const API_BASE_URL = 'http://10.99.58.165:8000/api'; // IP pake jaringan kantor
+// const API_BASE_URL = 'http://10.99.70.137:8000/api'; // IP pake jaringan ruang TIK
+// const API_BASE_URL = 'http://192.168.43.16:8000/api'; // IP pake jaringan HP
 
 function AsetListPage() {
   const [asets, setAsets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [lokasiOptions, setLokasiOptions] = useState([]);
+
+  const [unitBidangOptions, setUnitBidangOptions] = useState([]);
+  const [bidangOptions, setBidangOptions] = useState([]);
+  const [ruanganOptions, setRuanganOptions] = useState([]);
   const [klasifikasiOptions, setKlasifikasiOptions] = useState([]);
-  const [filters, setFilters] = useState({ search: '', lokasi: '', status: '' });
+  const [subKegiatanOptions, setSubKegiatanOptions] = useState([]);
+
+  const [filters, setFilters] = useState({ search: '', unit_bidang: '', bidang: '', ruangan: '', status: '' });
+  
   const [showModal, setShowModal] = useState(false);
   const [currentAset, setCurrentAset] = useState({});
   const [isEditing, setIsEditing] = useState(false);
-
+  
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -28,10 +37,11 @@ function AsetListPage() {
       const params = new URLSearchParams({
         page: page,
         search: filters.search,
-        lokasi: filters.lokasi,
+        unit_bidang: filters.unit_bidang,
+        bidang: filters.bidang,
+        ruangan: filters.ruangan,
         status: filters.status,
       }).toString();
-
       const response = await axios.get(`${API_BASE_URL}/aset/?${params}`);
       setAsets(response.data.results);
       setTotalPages(Math.ceil(response.data.count / 10));
@@ -44,12 +54,23 @@ function AsetListPage() {
 
   const fetchOptions = async () => {
     try {
-      const lokasiRes = await axios.get(`${API_BASE_URL}/lokasi/`);
-      const klasifikasiRes = await axios.get(`${API_BASE_URL}/klasifikasi/`);
-      setLokasiOptions(lokasiRes.data.results || lokasiRes.data);
+      const [unitBidangRes, bidangRes, klasifikasiRes, subKegiatanRes, ruanganRes] = await Promise.all([
+        axios.get(`${API_BASE_URL}/unit_bidang/`),
+        axios.get(`${API_BASE_URL}/bidang/`),
+        axios.get(`${API_BASE_URL}/klasifikasi/`),
+        axios.get(`${API_BASE_URL}/sub_kegiatan/`),
+        axios.get(`${API_BASE_URL}/ruangan/`),
+      ]);
+      
+      setUnitBidangOptions(unitBidangRes.data.results || unitBidangRes.data);
+      setBidangOptions(bidangRes.data.results || bidangRes.data);
       setKlasifikasiOptions(klasifikasiRes.data.results || klasifikasiRes.data);
+      setSubKegiatanOptions(subKegiatanRes.data.results || subKegiatanRes.data);
+      setRuanganOptions(ruanganRes.data.results || ruanganRes.data);
+
     } catch (err) {
       console.error("Gagal mengambil data options:", err);
+      setError("Gagal memuat data filter. Coba refresh halaman.");
     }
   };
 
@@ -61,57 +82,76 @@ function AsetListPage() {
     fetchOptions();
   }, []);
 
+  const handleFilterChange = (e) => {
+    setFilters({ ...filters, [e.target.name]: e.target.value });
+    setPage(1);
+  };
+
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
   };
 
-  // Handler untuk mengubah state filter
-  const handleFilterChange = (e) => {
-    setFilters({ ...filters, [e.target.name]: e.target.value });
-  };
-
-  // Handler untuk membuka modal
   const handleShow = (aset = null) => {
     if (aset) {
-      // Mode Edit: isi form dengan data aset yang ada
       setIsEditing(true);
       setCurrentAset({
         ...aset,
-        lokasi_id: aset.lokasi.id,
-        klasifikasi_id: aset.klasifikasi.id
+        unit_bidang_id: aset.unit_bidang.id,
+        bidang_id: aset.bidang?.id,
+        ruangan_id: aset.ruangan?.id,
+        klasifikasi_id: aset.klasifikasi.id,
+        sub_kegiatan_id: aset.sub_kegiatan?.id,
       });
     } else {
-      // Mode Tambah: form kosong
       setIsEditing(false);
       setCurrentAset({
-        nama_barang: '',
-        lokasi_id: '',
+        merek_tipe: '',
+        unit_bidang_id: '',
+        bidang_id: '',
+        ruangan_id: '',
         klasifikasi_id: '',
+        sub_kegiatan_id: '',
         tanggal_pembelian: '',
         harga_pembelian: '',
         status: 'Baik',
+        nomor_register: '',
+        ukuran: '',
+        bahan: '',
+        nomor_pabrik: '',
+        nomor_rangka: '',
+        nomor_mesin: '',
+        keterangan: '',
+        jenis_belanja: 'LS',
       });
     }
     setShowModal(true);
   };
 
-  // Handler untuk menutup modal
   const handleClose = () => {
     setShowModal(false);
     setCurrentAset({});
   };
 
-  // Handler untuk memperbarui state form saat user mengetik
   const handleChange = (e) => {
-    setCurrentAset({ ...currentAset, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    const updatedAset = { ...currentAset, [name]: value };
+
+    if (name === 'unit_bidang_id') {
+      updatedAset.bidang_id = '';
+    }
+
+    setCurrentAset(updatedAset);
+
+    if (name === 'bidang_id') {
+      updatedAset.ruangan_id = '';
+    }
+
+    setCurrentAset(updatedAset);
   };
 
-  // Handler untuk submit form (bisa untuk Tambah atau Edit)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = isEditing 
-      ? `${API_BASE_URL}/aset/${currentAset.id}/` 
-      : `${API_BASE_URL}/aset/`;
+    const url = isEditing ? `${API_BASE_URL}/aset/${currentAset.id}/` : `${API_BASE_URL}/aset/`;
     const method = isEditing ? 'put' : 'post';
 
     try {
@@ -124,7 +164,6 @@ function AsetListPage() {
     }
   };
 
-  // Handler untuk menghapus aset
   const handleDelete = async (id) => {
     if (window.confirm('Apakah Anda yakin ingin menghapus aset ini?')) {
       try {
@@ -136,15 +175,6 @@ function AsetListPage() {
     }
   };
 
-  // render tabel
-  const renderContent = () => {
-    if (loading) return <div className="text-center mt-5"><Spinner /><p>Memuat data...</p></div>;
-    if (error) return <Alert variant="danger" className="mt-3">Gagal memuat data: {error}</Alert>;
-
-    return <AsetTable asets={asets} handleEdit={handleShow} handleDelete={handleDelete} />;
-};
-
-  // render pagination
   const renderPagination = () => {
     if (totalPages <= 1) return null;
     let items = [];
@@ -158,15 +188,20 @@ function AsetListPage() {
     return <Pagination className="justify-content-center">{items}</Pagination>;
   };
 
+  const renderContent = () => {
+    if (loading) return <div className="text-center mt-5"><Spinner /><p>Memuat data...</p></div>;
+    if (error) return <Alert variant="danger" className="mt-3">{error}</Alert>;
+    return (
+        <>
+            <AsetTable asets={asets} handleEdit={handleShow} handleDelete={handleDelete} />
+            {renderPagination()}
+        </>
+    );
+  };
+
   return (
     <>
-      <Navbar bg="dark" variant="dark">
-        <Container fluid>
-          <Navbar.Brand href="#home">Sistem Manajemen Aset</Navbar.Brand>
-        </Container>
-      </Navbar>
-
-      <Container fluid className="mt-4">
+      <Container className="mt-4">
         <div className="d-flex justify-content-between align-items-center">
           <h2>Daftar Inventaris Aset</h2>
           <Button variant="primary" onClick={() => handleShow()}>
@@ -174,24 +209,19 @@ function AsetListPage() {
           </Button>
         </div>
         
-        <FilterForm 
-          filters={filters} 
-          handleFilterChange={handleFilterChange} 
-          lokasiOptions={lokasiOptions} 
+        <FilterForm
+          filters={filters}
+          handleFilterChange={handleFilterChange}
+          unitBidangOptions={unitBidangOptions}
+          bidangOptions={bidangOptions}
+          klasifikasiOptions={klasifikasiOptions}
+          ruanganOptions={ruanganOptions}
+
         />
-
         <hr />
-
         {renderContent()}
-
-        {!loading && !error && renderPagination()}
-
-        <Button onClick={() => window.open(`${API_BASE_URL}/laporan/kib-b/1/`, '_blank')}>
-          Cetak Laporan KIB B
-        </Button>
-
-
       </Container>
+
       <AsetModal
         show={showModal}
         handleClose={handleClose}
@@ -199,8 +229,11 @@ function AsetListPage() {
         handleChange={handleChange}
         isEditing={isEditing}
         currentAset={currentAset}
-        lokasiOptions={lokasiOptions}
+        unitBidangOptions={unitBidangOptions}
+        bidangOptions={bidangOptions}
+        ruanganOptions={ruanganOptions}
         klasifikasiOptions={klasifikasiOptions}
+        subKegiatanOptions={subKegiatanOptions}
       />
     </>
   );

@@ -3,7 +3,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
 
-const API_BASE_URL = 'http://10.99.20.123:8000/api'; // Sesuaikan IP
+const API_BASE_URL = 'http://127.0.0.1:8000/api'; //localhost
+//const API_BASE_URL = 'http://10.99.20.123:8000/api'; // IP pake jaringan kantor
+// const API_BASE_URL = 'http://10.99.58.165:8000/api'; // IP pake jaringan kantor
+// const API_BASE_URL = 'http://192.168.43.16:8000/api'; // IP pake jaringan HP
+// const API_BASE_URL = 'http://10.99.70.137:8000/api'; // IP pake ruang TIK
 
 function LoginPage() {
   const [username, setUsername] = useState('');

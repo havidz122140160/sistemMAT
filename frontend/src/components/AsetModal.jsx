@@ -1,7 +1,8 @@
 import React from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 
-function AsetModal({ show, handleClose, handleSubmit, handleChange, isEditing, currentAset, lokasiOptions, klasifikasiOptions }) {
+function AsetModal({ show, handleClose, handleSubmit, handleChange, isEditing, currentAset, unitBidangOptions, bidangOptions, ruanganOptions, klasifikasiOptions }) {
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -11,7 +12,7 @@ function AsetModal({ show, handleClose, handleSubmit, handleChange, isEditing, c
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
             <Form.Label>Nama/Merek/Tipe Barang</Form.Label>
-            <Form.Control type="text" name="nama_barang" value={currentAset.nama_barang || ''} onChange={handleChange} required />
+            <Form.Control type="text" name="merek_tipe" value={currentAset.merek_tipe || ''} onChange={handleChange} required />
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -23,10 +24,49 @@ function AsetModal({ show, handleClose, handleSubmit, handleChange, isEditing, c
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Lokasi</Form.Label>
-            <Form.Select name="lokasi_id" value={currentAset.lokasi_id || ''} onChange={handleChange} required>
-              <option value="">Pilih Lokasi</option>
-              {lokasiOptions.map(opt => <option key={opt.id} value={opt.id}>{opt.nama_lokasi}</option>)}
+            <Form.Label>Unit Bidang</Form.Label>
+            <Form.Select
+              name="unit_bidang_id"
+              value={currentAset.unit_bidang_id || ''}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Pilih Unit Bidang</option>
+              {unitBidangOptions
+                .map(opt => <option key={opt.id} value={opt.id}>{opt.nama_unit}</option>)}
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Bidang</Form.Label>
+            <Form.Select 
+              name="bidang_id" 
+              value={currentAset.bidang_id || ''} 
+              onChange={handleChange}
+              disabled={!currentAset.unit_bidang_id}
+              required
+            >
+              <option value="">Pilih Bidang</option>
+              {bidangOptions
+                ?.filter(opt => opt.unit_bidang == currentAset.unit_bidang_id)
+                .map(opt => <option key={opt.id} value={opt.id}>{opt.nama_bidang}</option>)
+              }
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Ruangan</Form.Label>
+            <Form.Select 
+              name="ruangan_id" 
+              value={currentAset.ruangan_id || ''} 
+              onChange={handleChange}
+              disabled={!currentAset.bidang_id}
+            >
+              <option value="">Pilih Ruangan</option>
+              {ruanganOptions
+                ?.filter(opt => opt.bidang && opt.bidang.id === parseInt(currentAset.bidang_id))
+                .map(opt => <option key={opt.id} value={opt.id}>{opt.nama_ruangan}</option>)
+              }
             </Form.Select>
           </Form.Group>
 

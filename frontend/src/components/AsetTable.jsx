@@ -9,6 +9,7 @@ function AsetTable({ asets, handleEdit, handleDelete }) {
           <th>#</th>
           <th>Kode Aset</th>
           <th>Nama Barang</th>
+          <th>Merek/Tipe</th>
           <th>Lokasi</th>
           <th>Aksi</th>
         </tr>
@@ -18,8 +19,9 @@ function AsetTable({ asets, handleEdit, handleDelete }) {
           <tr key={aset.id}>
             <td>{index + 1}</td>
             <td>{aset.kode_aset}</td>
-            <td>{aset.nama_barang}</td>
-            <td>{aset.lokasi_detail}</td>
+            <td>{aset.klasifikasi.nama}</td>
+            <td>{aset.merek_tipe}</td>
+            <td>{aset.unit_bidang.nama_unit}</td>
             <td>
               <Button variant="warning" size="sm" onClick={() => handleEdit(aset)} className="me-2">
                 Edit

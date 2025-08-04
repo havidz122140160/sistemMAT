@@ -9,11 +9,15 @@ from .models import (
     RincianObjek,
     SubRincianObjek,
     SubSubRincianObjek,
+    Pekerjaan,
+    Kegiatan,
+    SubKegiatan,
     RincianBarang,
     Provinsi,
     Kota,
     UnitBidang,
     Bidang,
+    Ruangan,
     User
 )
 
@@ -51,6 +55,21 @@ class SubSubRincianObjekSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubSubRincianObjek
         fields = '__all__'
+
+class PekerjaanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pekerjaan
+        fields = '__all__'
+
+class KegiatanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Kegiatan
+        fields = '__all__'
+
+class SubKegiatanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubKegiatan
+        fields = '__all__'
         
 class RincianBarangSerializer(serializers.ModelSerializer):
     class Meta:
@@ -77,6 +96,13 @@ class BidangSerializer(serializers.ModelSerializer):
         model = Bidang
         fields = '__all__'
 
+class RuanganSerializer(serializers.ModelSerializer):
+    bidang = BidangSerializer(read_only=True)
+    
+    class Meta:
+        model = Ruangan
+        fields = ['id', 'nama_ruangan', 'bidang', 'kode_lokasi']
+
 class AsetSerializer(serializers.ModelSerializer):
     klasifikasi = SubSubRincianObjekSerializer(read_only=True)
     unit_bidang = UnitBidangSerializer(read_only=True)
@@ -100,7 +126,7 @@ class AsetSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'kode_aset',
-            'nama_barang',
+            'merek_tipe',
             'klasifikasi',
             'unit_bidang',
             'bidang',

@@ -94,14 +94,25 @@ class Kota(models.Model):
 class UnitBidang(models.Model):
     kota = models.ForeignKey(Kota, on_delete=models.CASCADE)
     nama_unit = models.CharField(max_length=255, unique=True, verbose_name="Nama Unit Bidang")
-    nama_kepala_dinas = models.CharField(max_length=255)
-    nip_kepala_dinas = models.CharField(max_length=50)
+    nama_kepala_dinas = models.CharField(max_length=255, verbose_name="Nama Kepala Dinas")
+    nip_kepala_dinas = models.CharField(max_length=50, verbose_name="NIP Kepala Dinas")
     def __str__(self): return self.nama_unit
 
 class Bidang(models.Model):
-    unit_bidang = models.ForeignKey(UnitBidang, on_delete=models.CASCADE)
-    nama_bidang = models.CharField(max_length=100, verbose_name="Nama Bidang/Seksi")
+    unit_bidang = models.ForeignKey(UnitBidang, on_delete=models.CASCADE, verbose_name="Nama OPD")
+    nama_bidang = models.CharField(max_length=100, verbose_name="Nama Bidang")
+    nama_kepala_bidang = models.CharField(max_length=255, blank=True, null=True, verbose_name="Nama Kepala Bidang")
+    nip_kepala_bidang = models.CharField(max_length=50, blank=True, null=True, verbose_name="NIP Kepala Bidang")
+
     def __str__(self): return f"{self.nama_bidang} - {self.unit_bidang.nama_unit}"
+
+class Ruangan(models.Model):
+    bidang = models.ForeignKey(Bidang, on_delete=models.CASCADE)
+    nama_ruangan = models.CharField(max_length=100, verbose_name="Nama Ruangan Pakai")
+    kode_lokasi = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.nama_ruangan} - {self.bidang.nama_bidang}"
 
 # --- Model Hirarki Belanja Modal ---
 class Pekerjaan(models.Model):
@@ -134,7 +145,7 @@ class Aset(models.Model):
 
     # --- Data Klasifikasi & Nama ---
     klasifikasi = models.ForeignKey(SubSubRincianObjek, on_delete=models.PROTECT, verbose_name="Klasifikasi Barang")
-    nama_barang = models.CharField(max_length=260, verbose_name="Nama/Merek/Tipe Barang")
+    merek_tipe = models.CharField(max_length=260, verbose_name="Merek/Tipe", blank=True, null=True)
 
     # --- Field Baru dari Laporan ---
     jenis_belanja = models.CharField(max_length=2, choices=BELANJA_CHOICES, default='LS')
@@ -143,12 +154,15 @@ class Aset(models.Model):
     bahan = models.CharField(max_length=100, blank=True, null=True)
     nomor_pabrik = models.CharField(max_length=100, blank=True, null=True, verbose_name="Nomor Pabrik/Chasis")
     nomor_rangka = models.CharField(max_length=100, blank=True, null=True)
+    nomor_induk_barang = models.CharField(max_length=100, blank=True, null=True)
+    spesifikasi_lokasi = models.CharField(max_length=255, blank=True, null=True, verbose_name="Spesifikasi Lokasi Lainnya")
     nomor_mesin = models.CharField(max_length=100, blank=True, null=True)
     keterangan = models.TextField(blank=True, null=True)
 
     # --- Data Perolehan & Lokasi ---
     unit_bidang = models.ForeignKey(UnitBidang, on_delete=models.PROTECT)
     bidang = models.ForeignKey(Bidang, on_delete=models.PROTECT, null=True, blank=True)
+    ruangan = models.ForeignKey(Ruangan, on_delete=models.PROTECT, null=True, blank=True)
     didaftarkan_oleh = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     tanggal_pembelian = models.DateField()
     harga_pembelian = models.DecimalField(max_digits=15, decimal_places=2)
@@ -196,8 +210,7 @@ class Aset(models.Model):
             else:
                 self.nomor_register = 1
 
-            nomor_urut_baru = nomor_terakhir + 1
-            nomor_urut_terformat = f"{nomor_urut_baru:06d}"
+            nomor_urut_terformat = f"{self.nomor_register:06d}"
 
             self.kode_aset = f"{kode_provinsi}.{kode_kota}.{kode_barang_lengkap}.{tahun_pembelian}.{nomor_urut_terformat}"
         

@@ -3,22 +3,22 @@
 <head>
     <title>Rincian Belanja Modal</title>
     <style>
-        @page { size: A4 landscape; margin: 1cm; }
+        @page { size: 330mm 215mm; margin: 1cm; }
         body { font-family: sans-serif; font-size: 9pt; }
         table { width: 100%; border-collapse: collapse; }
         th, td { border: 1px solid black; padding: 4px; vertical-align: top; }
-        th { text-align: center; background-color: #f2f2f2; }
+        th { text-align: center; background-color: #f2f2f2; font-weight: bold; }
         .text-right { text-align: right; }
-        .no-border-left { border-left: none; }
-        .no-border-right { border-right: none; }
+        .text-center { text-align: center; }
+        h3, h4, p { text-align: center; margin: 0; padding: 0; }
     </style>
 </head>
 <body>
-    <h3 style="text-align: center; margin: 0;">RINCIAN BELANJA MODAL</h3>
-    <h4 style="text-align: center; margin: 0;">DINAS KOMUNIKASI DAN INFORMATIKA KABUPATEN TEBO</h4>
-    <p style="text-align: center;">Posisi: {{ end_date }}</p>
+    <h3>RINCIAN BELANJA MODAL</h3>
+    <h4>DINAS KOMUNIKASI DAN INFORMATIKA KABUPATEN TEBO</h4>
+    <p>Posisi: {{ end_date }}</p>
 
-    <table>
+    <table style="margin-top: 15px;">
         <thead>
             <tr>
                 <th rowspan="2">No.</th>
@@ -39,7 +39,7 @@
         <tbody>
             {% for aset in asets %}
             <tr>
-                <td>{{ forloop.counter }}</td>
+                <td class="text-center">{{ forloop.counter }}</td>
                 <td>
                     {% ifchanged aset.klasifikasi.sub_rincian_objek.rincian_objek.objek.jenis.nama %}
                         {{ aset.klasifikasi.sub_rincian_objek.rincian_objek.objek.jenis.nama }}
@@ -56,11 +56,15 @@
                     {% endifchanged %}
                 </td>
                 <td>{{ aset.nama_barang }}</td>
-                <td style="text-align: center;">1 Unit</td>
+                <td class="text-center">1 Unit</td>
                 <td class="text-right">{{ aset.harga_pembelian|floatformat:"2,," }}</td>
                 <td class="text-right">{{ aset.harga_pembelian|floatformat:"2,," }}</td>
-                <td style="text-align: center;">{{ aset.jenis_belanja }}</td>
+                <td class="text-center">{{ aset.jenis_belanja }}</td>
                 <td>{{ aset.keterangan|default_if_none:"" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="10" class="text-center">Tidak ada data untuk periode ini.</td>
             </tr>
             {% endfor %}
         </tbody>
