@@ -1,53 +1,131 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Laporan KIB B</title>
+    <title>KIB B - Peralatan dan Mesin</title>
     <style>
-        @page { 
-            size: 330mm 215mm;
-            margin: 1cm; 
-        }
-        body { font-family: sans-serif; }
+        @page { size: A3 landscape; margin: 1cm; }
+        body { font-family: 'Times New Roman', Times, serif; font-size: 8pt; }
         table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid black; padding: 5px; text-align: left; }
+        th, td { border: 1px solid black; padding: 2px; vertical-align: top; }
+        th { text-align: center; font-weight: bold; }
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+        .header-table td { border: none; padding: 0; }
     </style>
 </head>
 <body>
-    <h1>DAFTAR BMD PADA PENGGUNA BARANG</h1>
-    <h2>PERALATAN DAN MESIN</h2>
+    <table class="header-table">
+        <tr>
+            <td>PEMERINTAH PROPINSI</td>
+            <td>: {{ provinsi.nama | upper }}</td>
+            <td class="header-main-title">DAFTAR BMD PADA PENGGUNA BARANG</td>
+        </tr>
+        <tr>
+            <td>KABUPATEN/KOTA</td>
+            <td>: {{ kota.nama | upper }}</td>
+            <td class="header-sub-title">PERALATAN DAN MESIN</td>
+        </tr>
+        <tr>
+            <td>BIDANG ORGANISASI</td>
+            <td>: {{ bidang_organisasi | upper }}</td>
+            <td class="header-periode">Periode: {{ periode_str }}</td>
+        </tr>
+        <tr>
+            <td>UNIT BIDANG</td>
+            <td>: {{ unit_bidang.nama_unit | upper }}</td>
+            <td></td>
+        </tr>
+    </table>
 
-    {% if start_date %}
-        <p>Periode: {{ start_date }} s/d {{ end_date }}</p>
-    {% else %}
-        <p>Periode: Semua Waktu</p>
-    {% endif %}
-    
-    <p>Unit Bidang: {{ unit_bidang.nama_unit }}</p>
-    <table>
+    <table style="margin-top: 10px;">
         <thead>
             <tr>
-                <th>No.</th>
-                <th>Kode Barang</th>
-                <th>Nama Barang</th>
-                </tr>
+                <th rowspan="2">No</th>
+                <th rowspan="2">Kode Barang</th>
+                <th rowspan="2">Nama Barang</th>
+                <th rowspan="2">Nomor Induk Barang</th>
+                <th rowspan="2">Nomor Register</th>
+                <th rowspan="2">Spesifikasi Nama Barang</th>
+                <th rowspan="2">Merk/ Type</th>
+                <th rowspan="2">Spesifikasi Lokasi Lainnya</th>
+                <th colspan="4">Kendaraan Dinas</th>
+                <th colspan="2">Jumlah</th>
+                <th rowspan="2">Harga Satuan Perolehan (Rp)</th>
+                <th rowspan="2">Nilai Perolehan (Rp)</th>
+                <th rowspan="2">Nilai Rehab (Rp)</th>
+                <th rowspan="2">Total Nilai Aset Rehab (Rp)</th>
+                <th rowspan="2">Penyusutan Semester ini (Rp)</th>
+                <th rowspan="2">Akumulasi Penyusutan (Rp)</th>
+                <th rowspan="2">Nilai Buku (Rp)</th>
+                <th rowspan="2">Status Penggunaan</th>
+                <th rowspan="2">Keterangan</th>
+                <th rowspan="2">Tahun Perolehan</th>
+                <th rowspan="2">Cara Perolehan</th>
+            </tr>
+            <tr>
+                <th>No. Polisi</th>
+                <th>No. Rangka</th>
+                <th>No. Mesin</th>
+                <th>No. BPKB</th>
+                <th>Jumlah</th>
+                <th>Satuan</th>
+            </tr>
         </thead>
         <tbody>
             {% for aset in asets %}
             <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ aset.kode_aset }}</td>
-                <td>{{ aset.nama_barang }}</td>
-                </tr>
+                <td class="text-center">{{ forloop.counter }}</td>
+                <td>{{ aset.kode_aset}}</td>
+                <td>{{ aset.klasifikasi.nama }}</td>
+                <td>{{ aset.nomor_induk}}<br>{{ aset.kode_aset }}</td>
+                <td class="text-center">{{ aset.nomor_terakhir }}</td>
+                <td>{{ aset.merek_tipe|default_if_none:"" }}</td>
+                <td>{{ aset.merek_tipe|default_if_none:"" }}</td>
+                <td>{{ aset.spesifikasi_lokasi|default_if_none:"" }}</td>
+                <td>{{ aset.nomor_polisi|default_if_none:"" }}</td>
+                <td>{{ aset.nomor_rangka|default_if_none:"" }}</td>
+                <td>{{ aset.nomor_mesin|default_if_none:"" }}</td>
+                <td>{{ aset.nomor_bpkb|default_if_none:"" }}</td>
+                <td class="text-center">1</td>
+                <td class="text-center">Unit</td>
+                <td class="text-right">{{ aset.harga_pembelian|floatformat:"2,," }}</td>
+                <td class="text-right">{{ aset.harga_pembelian|floatformat:"2,," }}</td>
+                <td class="text-right">{{ aset.nilai_rehab|floatformat:"2,," }}</td>
+                <td class="text-right">{{ aset.total_nilai_aset_rehab|floatformat:"2,," }}</td>
+                <td class="text-right">{{ aset.penyusutan_semester|floatformat:"2,," }}</td>
+                <td class="text-right">{{ aset.akumulasi_penyusutan|floatformat:"2,," }}</td>
+                <td class="text-right">{{ aset.nilai_buku|floatformat:"2,," }}</td>
+                <td>{{ aset.cara_perolehan|default_if_none:"" }}</td>
+                <td class="text-center">{{ aset.tanggal_pembelian|date:"Y" }}</td>
+                <td>{{ aset.status_penggunaan|default_if_none:"" }}</td>
+                <td>{{ aset.keterangan|default_if_none:"" }}</td>
+            </tr>
             {% endfor %}
-        </tbody>
+            </tbody>
     </table>
 
-    <div style="margin-top: 50px; text-align: right;">
-        <p>{{ unit_bidang.kota.nama_kota }}, {% now "d F Y" %}</p>
-        <p>Kepala Dinas</p>
-        <br/><br/><br/>
-        <p><strong>{{ unit_bidang.nama_kepala_dinas }}</strong></p>
-        <p>NIP. {{ unit_bidang.nip_kepala_dinas }}</p>
-    </div>
+    <table class="header-table" style="margin-top: 20px;">
+        <tr>
+            <td style="width: 33%;" class="text-center">MENGETAHUI,</td>
+            <td style="width: 33%;"></td>
+            <td style="width: 33%;" class="text-center">{{ kota.nama }}, {% now "d F Y" %}</td>
+        </tr>
+        <tr>
+            <td class="text-center">PENGGUNA BARANG</td>
+            <td></td>
+            <td class="text-center">PENGURUS BARANG PENGGUNA</td>
+        </tr>
+        <tr style="height: 60px;"><td></td><td></td><td></td></tr>
+        <tr>
+            <td class="text-center"><strong>({{ unit_bidang.nama_kepala_dinas }})</strong></td>
+            <td></td>
+            <td class="text-center"><strong>({{ unit_bidang.nama_pengurus_barang }})</strong></td>
+        </tr>
+        <tr>
+            <td class="text-center">NIP. {{ unit_bidang.nip_kepala_dinas }}</td>
+            <td></td>
+            <td class="text-center">NIP. {{ unit_bidang.nip_pengurus_barang }}</td>
+        </tr>
+    </table>
 </body>
 </html>

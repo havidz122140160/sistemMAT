@@ -4,6 +4,7 @@ import { Container, Spinner, Alert, Button, Pagination } from 'react-bootstrap';
 import AsetTable from '../components/AsetTable';
 import FilterForm from '../components/FilterForm';
 import AsetModal from '../components/AsetModal';
+import './AsetListPage.css';
 
 const API_BASE_URL = 'http://127.0.0.1:8000/api'; //localhost
 //const API_BASE_URL = 'http://10.99.20.123:8000/api'; // IP pake jaringan kantor
@@ -201,25 +202,30 @@ function AsetListPage() {
 
   return (
     <>
-      <Container className="mt-4">
-        <div className="d-flex justify-content-between align-items-center">
+      <Container fluid className="p-4">
+        {/* Bungkus header */}
+        <div className="page-header d-flex justify-content-between align-items-center">
           <h2>Daftar Inventaris Aset</h2>
           <Button variant="primary" onClick={() => handleShow()}>
             + Tambah Aset Baru
           </Button>
         </div>
-        
-        <FilterForm
-          filters={filters}
-          handleFilterChange={handleFilterChange}
-          unitBidangOptions={unitBidangOptions}
-          bidangOptions={bidangOptions}
-          klasifikasiOptions={klasifikasiOptions}
-          ruanganOptions={ruanganOptions}
 
-        />
-        <hr />
-        {renderContent()}
+        {/* Bungkus form filter */}
+        <div className="filter-container">
+          <FilterForm
+            filters={filters}
+            handleFilterChange={handleFilterChange}
+            unitBidangOptions={unitBidangOptions}
+            bidangOptions={bidangOptions}
+          />
+        </div>
+
+        {/* Bungkus konten utama (tabel & paginasi) */}
+        <div className="table-container">
+          {renderContent()}
+        </div>
+
       </Container>
 
       <AsetModal

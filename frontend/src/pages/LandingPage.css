@@ -1,0 +1,36 @@
+/* src/pages/LandingPage.css */
+.hero-section {
+    background-color: var(--secondary-blue);
+    border-radius: 2rem;
+    padding: 2rem;
+    margin: 2rem;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 50%;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--dark-text);
+    line-height: 1.2;
+}
+
+.hero-content p {
+    color: var(--light-text);
+    margin: 1rem 0 2rem 0;
+}
+
+.hero-image {
+    position: absolute;
+    right: -150px; /* Atur posisi pesawat */
+    top: 0;
+    width: 70%;
+    opacity: 0.9;
+}

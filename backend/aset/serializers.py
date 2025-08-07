@@ -135,9 +135,9 @@ class AsetSerializer(serializers.ModelSerializer):
             'bidang_id',
             'didaftarkan_oleh_id',
             'nomor_register',
-            'ukuran',
-            'bahan',
-            'nomor_pabrik',
+            
+            
+            
             'nomor_rangka',
             'nomor_mesin',
             'keterangan',

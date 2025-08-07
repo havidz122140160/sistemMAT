@@ -1,3 +1,4 @@
+from .views import DashboardStatsView
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
@@ -27,4 +28,5 @@ urlpatterns += [
     path('laporan/kib-b/<int:unit_bidang_id>/', generate_kib_b_pdf, name='cetak-kib-b'),
     path('laporan/belanja-modal/', generate_belanja_modal_pdf, name='cetak-belanja-modal'),
     path('laporan/kir/<int:ruangan_id>/', generate_kir_pdf, name='cetak-kir'),
+    path('dashboard-stats/', DashboardStatsView.as_view(), name='dashboard-stats'),
 ]

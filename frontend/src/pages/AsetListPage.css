@@ -1,0 +1,26 @@
+/* src/pages/AsetListPage.css */
+
+.page-header {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 1rem; /* Sudut membulat */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Bayangan halus */
+  margin-bottom: 1.5rem;
+}
+
+/* Atur agar form filter juga punya style serupa */
+.filter-container {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Pastikan tabel juga punya style modern */
+.table-container {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-top: 1.5rem;
+}

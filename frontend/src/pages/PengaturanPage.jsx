@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Card, Table, Button, Modal, Form, Alert, Row, Col } from 'react-bootstrap';
+import './AsetListPage.css'
 
 const API_BASE_URL = 'http://127.0.0.1:8000/api'; //localhost
 //const API_BASE_URL = 'http://10.99.20.123:8000/api'; // IP pake jaringan kantor
@@ -9,6 +10,7 @@ const API_BASE_URL = 'http://127.0.0.1:8000/api'; //localhost
 // const API_BASE_URL = 'http://10.99.70.137:8000/api'; // IP pake ruangan TIK
 
 function PengaturanPage() {
+  // --- State untuk Pekerjaan ---
   const [pekerjaanList, setPekerjaanList] = useState([]);
   const [loadingPekerjaan, setLoadingPekerjaan] = useState(true);
   const [errorPekerjaan, setErrorPekerjaan] = useState(null);
@@ -16,6 +18,7 @@ function PengaturanPage() {
   const [currentPekerjaan, setCurrentPekerjaan] = useState({});
   const [isEditingPekerjaan, setIsEditingPekerjaan] = useState(false);
 
+  // --- State untuk Kegiatan ---
   const [kegiatanList, setKegiatanList] = useState([]);
   const [loadingKegiatan, setLoadingKegiatan] = useState(true);
   const [errorKegiatan, setErrorKegiatan] = useState(null);
@@ -23,6 +26,7 @@ function PengaturanPage() {
   const [currentKegiatan, setCurrentKegiatan] = useState({});
   const [isEditingKegiatan, setIsEditingKegiatan] = useState(false);
 
+  // --- State untuk Subkegiatan ---
   const [subkegiatanList, setSubkegiatanList] = useState([]);
   const [loadingSubkegiatan, setLoadingSubkegiatan] = useState(true);
   const [errorSubkegiatan, setErrorSubkegiatan] = useState(null);
@@ -30,46 +34,33 @@ function PengaturanPage() {
   const [currentSubkegiatan, setCurrentSubkegiatan] = useState({});
   const [isEditingSubkegiatan, setIsEditingSubkegiatan] = useState(false);
 
-  const fetchPekerjaan = async () => {
+  // --- Fungsi Fetch Data ---
+  const fetchAllData = async () => {
     try {
       setLoadingPekerjaan(true);
-      const response = await axios.get(`${API_BASE_URL}/pekerjaan/`);
-      setPekerjaanList(response.data);
+      setLoadingKegiatan(true);
+      setLoadingSubkegiatan(true);
+      const [pekerjaanRes, kegiatanRes, subkegiatanRes] = await Promise.all([
+        axios.get(`${API_BASE_URL}/pekerjaan/`),
+        axios.get(`${API_BASE_URL}/kegiatan/`),
+        axios.get(`${API_BASE_URL}/sub_kegiatan/`),
+      ]);
+      setPekerjaanList(pekerjaanRes.data);
+      setKegiatanList(kegiatanRes.data);
+      setSubkegiatanList(subkegiatanRes.data);
     } catch (err) {
       setErrorPekerjaan(err.message);
-    } finally {
-      setLoadingPekerjaan(false);
-    }
-  };
-
-  const fetchKegiatan = async () => {
-    try {
-      setLoadingKegiatan(true);
-      const response = await axios.get(`${API_BASE_URL}/kegiatan/`);
-      setKegiatanList(response.data);
-    } catch (err) {
       setErrorKegiatan(err.message);
-    } finally {
-      setLoadingKegiatan(false);
-    }
-  };
-
-   const fetchSubkegiatan = async () => {
-    try {
-      setLoadingSubkegiatan(true);
-      const response = await axios.get(`${API_BASE_URL}/sub_kegiatan/`);
-      setSubkegiatanList(response.data);
-    } catch (err) {
       setErrorSubkegiatan(err.message);
     } finally {
+      setLoadingPekerjaan(false);
+      setLoadingKegiatan(false);
       setLoadingSubkegiatan(false);
     }
   };
 
   useEffect(() => {
-    fetchPekerjaan();
-    fetchKegiatan();
-    fetchSubkegiatan();
+    fetchAllData();
   }, []);
 
   const handleShow = (item = null) => {
@@ -96,7 +87,7 @@ function PengaturanPage() {
     try {
       await axios[method](url, currentPekerjaan);
       handleClose();
-      fetchPekerjaan();
+      fetchAllData();
     } catch (err) {
       console.error("Gagal menyimpan pekerjaan:", err.response.data);
     }
@@ -106,7 +97,7 @@ function PengaturanPage() {
     if (window.confirm('Yakin ingin menghapus item ini?')) {
       try {
         await axios.delete(`${API_BASE_URL}/pekerjaan/${id}/`);
-        fetchPekerjaan();
+        fetchAllData();
       } catch (err) {
         console.error("Gagal menghapus pekerjaan:", err.response.data);
       }
@@ -134,7 +125,7 @@ function PengaturanPage() {
     try {
       await axios[method](url, currentKegiatan);
       handleCloseKegiatan();
-      fetchKegiatan();
+      fetchAllData();
     } catch (err) {
       console.error("Gagal menyimpan kegiatan:", err.response.data);
     }
@@ -143,7 +134,7 @@ function PengaturanPage() {
     if (window.confirm('Yakin ingin menghapus item ini?')) {
       try {
         await axios.delete(`${API_BASE_URL}/kegiatan/${id}/`);
-        fetchKegiatan();
+        fetchAllData();
       } catch (err) {
         console.error("Gagal menghapus kegiatan:", err.response.data);
       }
@@ -171,7 +162,7 @@ function PengaturanPage() {
     try {
       await axios[method](url, currentSubkegiatan);
       handleCloseSubkegiatan();
-      fetchSubkegiatan();
+      fetchAllData();
     } catch (err) {
       console.error("Gagal menyimpan subkegiatan:", err.response.data);
     }
@@ -180,25 +171,28 @@ function PengaturanPage() {
     if (window.confirm('Yakin ingin menghapus item ini?')) {
       try {
         await axios.delete(`${API_BASE_URL}/sub_kegiatan/${id}/`);
-        fetchSubkegiatan();
+        fetchAllData();
       } catch (err) {
         console.error("Gagal menghapus subkegiatan:", err.response.data);
       }
     }
   };
-
+  
   return (
-    <><Container className="mt-4">
-          <h2>Halaman Pengaturan</h2>
-          <hr/>
-          <Row>
-            <Col md={6}>
-                <Card>
-                    <Card.Header className="d-flex justify-content-between align-items-center">
-                        Manajemen Pekerjaan
-                        <Button variant="primary" size="sm" onClick={() => handleShow()}>+ Tambah Pekerjaan</Button>
-                    </Card.Header>
-                    <Card.Body>
+    <Container fluid className="p-4">
+      <div className="page-header">
+        <h2>Halaman Pengaturan</h2>
+      </div>
+
+      <Row className="mt-3 g-4">
+        {/* Card untuk Manajemen Pekerjaan */}
+        <Col md={12} className="mb-3">
+          <Card className="h-100 shadow-sm border-0 rounded-4">
+            <Card.Header className="d-flex justify-content-between align-items-center">
+              Manajemen Pekerjaan
+              <Button variant="primary" size="sm" onClick={() => handleShow()}>+ Tambah</Button>
+            </Card.Header>
+            <Card.Body>
                         {loadingPekerjaan && <p>Loading...</p>}
                         {errorPekerjaan && <Alert variant="danger">{errorPekerjaan}</Alert>}
                         {!loadingPekerjaan && !errorPekerjaan && (
@@ -228,14 +222,15 @@ function PengaturanPage() {
                 </Card>
             </Col>
 
-            <Col md={6}>
-                <Card className="mb-3">
-                    <Card.Header className="d-flex justify-content-between align-items-center">
-                    Manajemen Kegiatan
-                    <Button variant="primary" size="sm" onClick={() => handleShowKegiatan()}>+ Tambah Kegiatan</Button>
-                    </Card.Header>
-                    <Card.Body>
-                    {loadingKegiatan && <p>Loading...</p>}
+        {/* Card untuk Manajemen Kegiatan */}
+        <Col md={12} className="mb-3">
+          <Card className="h-100 shadow-sm border-0 rounded-4">
+            <Card.Header className="d-flex justify-content-between align-items-center">
+              Manajemen Kegiatan
+              <Button variant="primary" size="sm" onClick={() => handleShowKegiatan()}>+ Tambah</Button>
+            </Card.Header>
+            <Card.Body>
+              {loadingKegiatan && <p>Loading...</p>}
                     {errorKegiatan && <Alert variant="danger">{errorKegiatan}</Alert>}
                     {!loadingKegiatan && !errorKegiatan && (
                         <Table striped bordered hover responsive>
@@ -263,18 +258,19 @@ function PengaturanPage() {
                         </tbody>
                         </Table>
                     )}
-                    </Card.Body>
-                </Card>
-            </Col>
+            </Card.Body>
+          </Card>
+        </Col>
 
-            <Col md={12} lg={4}>
-                <Card className="mb-3">
-                    <Card.Header className="d-flex justify-content-between align-items-center">
-                    Manajemen Subkegiatan
-                    <Button variant="primary" size="sm" onClick={() => handleShowSubkegiatan()}>+ Tambah</Button>
-                    </Card.Header>
-                    <Card.Body>
-                    {loadingSubkegiatan && <p>Loading...</p>}
+        {/* Card untuk Manajemen Subkegiatan */}
+        <Col md={12} className="mb-3">
+          <Card className="h-100 shadow-sm border-0 rounded-4">
+            <Card.Header className="d-flex justify-content-between align-items-center">
+              Manajemen Subkegiatan
+              <Button variant="primary" size="sm" onClick={() => handleShowSubkegiatan()}>+ Tambah</Button>
+            </Card.Header>
+            <Card.Body>
+              {loadingSubkegiatan && <p>Loading...</p>}
                     {errorSubkegiatan && <Alert variant="danger">{errorSubkegiatan}</Alert>}
                     {!loadingSubkegiatan && !errorSubkegiatan && (
                         <Table striped bordered hover responsive size="sm">
@@ -301,12 +297,10 @@ function PengaturanPage() {
                         </tbody>
                         </Table>
                     )}
-                    </Card.Body>
-                </Card>
-            </Col>
-            </Row>
-          {/* Di sini nanti bisa ditambahkan Card untuk Kegiatan, Subkegiatan, dll. */}
-      </Container>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
         <Modal show={showPekerjaanModal} onHide={handleClose}>
               <Modal.Header closeButton>
                   <Modal.Title>{isEditingPekerjaan ? 'Edit Pekerjaan' : 'Tambah Pekerjaan Baru'}</Modal.Title>
@@ -368,7 +362,7 @@ function PengaturanPage() {
             </Form>
             </Modal.Body>
         </Modal>
-    </>
+    </Container>
   );
 }
 

@@ -3,7 +3,12 @@ from django.template.loader import get_template
 from weasyprint import HTML
 from datetime import date
 from rest_framework import viewsets, filters
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.db.models import Count
+from .models import Aset
 from django_filters.rest_framework import DjangoFilterBackend
+
 from .models import (
     Aset, Akun, Kelompok, Jenis, Objek, RincianObjek,
     SubRincianObjek, SubSubRincianObjek, RincianBarang, Pekerjaan,
@@ -17,6 +22,21 @@ from .serializers import (
     KegiatanSerializer, SubKegiatanSerializer, ProvinsiSerializer,
     KotaSerializer, UnitBidangSerializer, BidangSerializer, RuanganSerializer
 )
+
+class DashboardStatsView(APIView):
+    """
+    View untuk menyediakan data statistik untuk dashboard.
+    """
+    def get(self, request, format=None):
+        total_aset = Aset.objects.count()
+        
+        aset_by_status = Aset.objects.values('status').annotate(total=Count('status')).order_by('status')
+        
+        data = {
+            'total_aset': total_aset,
+            'aset_by_status': list(aset_by_status)
+        }
+        return Response(data)
 
 class AsetViewSet(viewsets.ModelViewSet):
     queryset = Aset.objects.all().order_by('-dibuat_pada')
@@ -123,6 +143,7 @@ def generate_kib_b_pdf(request, unit_bidang_id):
     
         start_date_str = request.GET.get('start_date')
         end_date_str = request.GET.get('end_date', date.today().strftime('%Y-%m-%d')) # Default end_date adalah hari ini
+        periode_str = f"01/01/1945 - {end_date_str}"
 
         asets_query = Aset.objects.filter(
             unit_bidang=unit_bidang,
@@ -143,6 +164,7 @@ def generate_kib_b_pdf(request, unit_bidang_id):
             'kota': unit_bidang.kota,
             'start_date': start_date_str, 
             'end_date': end_date_str,  
+            'periode': periode_str,
         }
         html_string = template.render(context)
         
